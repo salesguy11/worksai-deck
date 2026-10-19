@@ -17,7 +17,7 @@ const CATALOG={
  cover:{eyebrow:S(40),title:S(16,1),subtitle:S(46,1),accent:S(90),org:S(40),image:S(40,1)},
  statement:{eyebrow:S(30),title:S(60,1),lead:S(130),badge:S(30),badgeEv:EV},
  section:{eyebrow:S(30),title:S(36,1),lead:S(140),chips:AR(0,6,S(22))},
- cards:{eyebrow:S(30),title:S(40,1),lead:S(110),items:AR(2,4,{title:S(24,1),body:S(110,1),ev:EV})},
+ cards:{eyebrow:S(30),title:S(40,1),lead:S(110),badge:S(40),items:AR(2,4,{title:S(24,1),body:S(110,1),ev:EV})},
  metrics:{eyebrow:S(30),title:S(40,1),lead:S(110),items:AR(3,12,{value:S(10,1),unit:S(8),label:S(34,1),badge:S(18),ev:EV}),foot:S(110)},
  steps:{eyebrow:S(30),title:S(40,1),lead:S(110),items:AR(3,5,{title:S(22,1),body:S(100,1),ev:EV})},
  'feature-shot':{eyebrow:S(30),title:S(30,1),lead:S(100),points:AR(0,3,{text:S(60,1),ev:EV}),image:S(40,1),alt:S(140,1),side:E(['right','left'])},
@@ -68,7 +68,7 @@ const R={
  cover:p=>`<div class="cv-eb">${esc(p.eyebrow||'')}</div><h1 class="cv-t">${rich(p.title)}</h1><div class="cv-s">${rich(p.subtitle)}</div>${p.accent?`<div class="cv-a">${rich(p.accent)}</div>`:''}${p.org?`<div class="cv-o">${esc(p.org)}</div>`:''}${chip('cv-lg')}`,
  statement:p=>`<div class="body">${eb(p)}<h1 class="h1">${rich(p.title)}${dag(p)}</h1>${p.lead?`<p class="lead">${rich(p.lead)}</p>`:''}${p.badge?`<div><span class="badge">${esc(p.badge)}${INTERNAL&&p.badgeEv==='u'?'<sup class="dag">†</sup>':''}</span></div>`:''}</div>`,
  section:p=>`<div class="body">${eb(p)}<h1 class="h1">${rich(p.title)}</h1>${p.lead?`<p class="lead">${rich(p.lead)}</p>`:''}${(p.chips||[]).length?`<div class="chips">${p.chips.map(c=>`<span class="chip">${esc(c)}</span>`).join('')}</div>`:''}</div>`,
- cards:p=>`<div class="body">${head(p)}<div class="cards" style="--n:${p.items.length}">${p.items.map((c,j)=>`<div class="card"><div class="ix">${String(j+1).padStart(2,'0')}</div><h3>${rich(c.title)}${dag(c)}</h3><p>${rich(c.body)}</p></div>`).join('')}</div></div>`,
+ cards:p=>`<div class="body">${head(p)}${p.badge?`<div><span class="badge" style="margin:0 0 36px">${esc(p.badge)}</span></div>`:''}<div class="cards" style="--n:${p.items.length}">${p.items.map((c,j)=>`<div class="card"><div class="ix">${String(j+1).padStart(2,'0')}</div><h3>${rich(c.title)}${dag(c)}</h3><p>${rich(c.body)}</p></div>`).join('')}</div></div>`,
  metrics:p=>{const n=p.items.length,c=n<=4?n:n<=6?3:n<=8?4:n===9?3:4,vs=n<=3?96:n<=6?76:n<=9?56:52;
   return `<div class="body">${head(p)}<div class="mgrid" style="--c:${c};--vs:${vs}px">${p.items.map(m=>`<div class="mt"><div class="mv">${num(m.value)}${m.unit?`<small>${esc(m.unit)}</small>`:''}${dag(m)}</div><div class="ml">${rich(m.label)}</div>${m.badge?`<span class="mb">${esc(m.badge)}</span>`:''}</div>`).join('')}</div>${p.foot?`<div class="mfoot">${esc(p.foot)}</div>`:''}</div>`},
  steps:p=>`<div class="body">${head(p)}<div class="srow">${p.items.map((s,j)=>(j?'<div class="sarr" aria-hidden="true">›</div>':'')+`<div class="scard"><span class="sn">${j+1}단계</span><h3>${rich(s.title)}${dag(s)}</h3><p>${rich(s.body)}</p></div>`).join('')}</div></div>`,
