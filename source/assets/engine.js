@@ -195,7 +195,7 @@ function boot(){
  buildDoc();
  $('#bPres').onclick=()=>enterPres(currentDocPage());
  $('#pctl').onclick=e=>{const a=e.target.dataset&&e.target.dataset.a;if(a==='prev')showPres(CUR-1);else if(a==='next')showPres(CUR+1);else if(a==='ov')openOv();else if(a==='exit')exitPres()};
- $('#pres').addEventListener('click',e=>{if(e.target.closest('a,button'))return;showPres(CUR+1)});
+ $('#pres').addEventListener('click',e=>{if(e.target.closest('a,button,video,.vid-card'))return;showPres(CUR+1)});
  addEventListener('mousemove',()=>{if(MODE==='pres')pingCtl()});
  addEventListener('resize',()=>{layoutDoc();fitPres()});
  addEventListener('keydown',onKey);
@@ -220,6 +220,7 @@ function onKey(e){
  const k=e.key;
  if(MODE==='pres'){
   if($('#ov').classList.contains('on')){if(k==='Escape'){$('#ov').classList.remove('on')}return}
+  if((k===' '||k==='Enter')&&e.target.matches&&e.target.matches('video'))return;
   if(k==='ArrowRight'||k==='PageDown'||k===' '||k==='Enter'){e.preventDefault();showPres(CUR+1)}
   else if(k==='ArrowLeft'||k==='PageUp'||k==='Backspace'){e.preventDefault();showPres(CUR-1)}
   else if(k==='Home')showPres(0);else if(k==='End')showPres(N-1);
