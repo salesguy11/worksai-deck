@@ -22,7 +22,8 @@
     "ops": "img/ops.webp",
     "logos": "img/logos.webp",
     "logoWorks": "img/worksai-logo.webp",
-    "logoLs": "img/lsitc-logo.webp"
+    "logoLs": "img/lsitc-logo.webp",
+    "introPoster": "img/intro-poster.webp"
   },
   "pages": [
     {
@@ -34,6 +35,16 @@
       "org": "웍스 AI 총판 · LS ITC",
       "image": "cover",
       "notes": "기업용 전사 AI 포털로 소개를 시작한다."
+    },
+    {
+      "type": "video",
+      "eyebrow": "INTRO VIDEO",
+      "title": "2분 25초로 보는 웍스AI",
+      "lead": "전 직원에게 제공하는 기업용 전사 AI 포털의 핵심을 영상으로 확인하세요.",
+      "file": "media/wrksai_intro_v6.mp4",
+      "poster": "introPoster",
+      "caption": "소리 없는 영상입니다. 화면은 예시이며 실제 기능은 계약 조건에 따라 다를 수 있습니다.",
+      "notes": "소리 없는 모션 타이포 영상(2분 25초). 재생 버튼으로 시작하고 발표 중에는 설명을 곁들인다. 영상 안의 '고정비 0원'은 계정 수에 따른 고정비 없음의 뜻이며, 이용 기록 등 부가서비스는 선택 항목으로 별도 요금이 있다. 질문이 나오면 구분해 답한다. 영상 파일은 index.html과 같은 폴더의 media 폴더에 있어야 재생된다."
     },
     {
       "type": "cards",

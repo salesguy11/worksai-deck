@@ -25,6 +25,7 @@ const CATALOG={
  timeline:{eyebrow:S(30),title:S(46,1),lead:S(110),aside:AR(0,2,{k:S(8,1),title:S(30,1),body:S(100,1)}),items:AR(3,6,{tag:S(8,1),badge:S(14),title:S(30,1),body:S(80,1)})},
  quotes:{eyebrow:S(30),title:S(40,1),columns:AR(1,2,{org:S(40,1),role:S(40),qa:AR(1,3,{q:S(60,1),a:S(230,1)})})},
  gallery:{eyebrow:S(30),title:S(40,1),lead:S(110),image:S(40,1),alt:S(140,1),caption:S(80)},
+ video:{eyebrow:S(30),title:S(40,1),lead:S(110),file:S(80,1),poster:S(40),caption:S(80)},
  contact:{eyebrow:S(30),title:S(30,1),lead:S(100),rows:AR(1,6,{label:S(16,1),value:S(60,1),href:S(200)}),org:S(40),cta:{text:S(24,1),href:S(200,1)}}
 };
 const len=s=>Array.from(String(s)).length;
@@ -77,6 +78,7 @@ const R={
  timeline:p=>`<div class="body">${head(p)}<div class="tl">${(p.aside||[]).length?`<div class="tla">${p.aside.map(a=>`<div class="tlk"><div class="tlkk">${esc(a.k)}</div><h3>${rich(a.title)}</h3><p>${rich(a.body)}</p></div>`).join('')}</div>`:''}<ol class="tlist">${p.items.map(i=>`<li><span class="tg">${esc(i.tag)}</span><div><div class="tlh">${i.badge?`<em>${esc(i.badge)}</em>`:''}<h3>${rich(i.title)}</h3></div><p>${rich(i.body)}</p></div></li>`).join('')}</ol></div></div>`,
  quotes:p=>`<div class="body">${head(p)}<div class="qcols" style="--n:${p.columns.length}">${p.columns.map(c=>`<div class="qcol"><div class="qorg"><b>${esc(c.org)}</b>${c.role?`<span>${esc(c.role)}</span>`:''}</div>${c.qa.map(x=>`<div class="qa"><div class="qq">Q. ${esc(x.q)}</div><p>“${esc(x.a)}”</p></div>`).join('')}</div>`).join('')}</div></div>`,
  gallery:p=>`<div class="body">${head(p)}<div class="gal-card"><img src="${ASSETS[p.image]||''}" alt="${esc(p.alt)}"></div>${p.caption?`<div class="gal-cap">${esc(p.caption).replace(/\[([^\]]+)\]/g,'<em>$1</em>')}</div>`:''}</div>`,
+ video:p=>`<div class="body">${head(p)}<div class="vid-card"><video controls preload="metadata" playsinline${p.poster&&ASSETS[p.poster]?` poster="${ASSETS[p.poster]}"`:''} src="${esc(p.file)}">영상을 재생할 수 없는 환경입니다.</video></div>${p.caption?`<div class="vid-cap">${esc(p.caption)}</div>`:''}</div>`,
  contact:p=>`<div class="body">${eb(p)}<h1 class="h1">${rich(p.title)}</h1>${p.lead?`<p class="lead">${rich(p.lead)}</p>`:''}<div class="crows">${p.rows.map(r=>`<div class="crow"><span>${esc(r.label)}</span><b>${r.href?`<a href="${esc(r.href)}">${esc(r.value)}</a>`:esc(r.value)}</b></div>`).join('')}</div>${p.cta?`<div><a class="cta" href="${esc(p.cta.href)}">${esc(p.cta.text)}</a></div>`:''}${p.org?`<div class="corg">${esc(p.org)}</div>`:''}${chip('ct-lg')}</div>`
 };
 const num=v=>{const s=String(v);return /^\d[\d,]*(\.\d+)?$/.test(s)?`<span class="num" data-to="${s.replace(/,/g,'')}" data-dec="${(s.split('.')[1]||'').length}" data-c="${s.includes(',')?1:0}">${esc(s)}</span>`:esc(s)};
@@ -95,7 +97,7 @@ function buildTiles(){
   return t;
  });
 }
-const RV='.eyebrow,.h1,.lead,.badge,.mfoot,.corg,.cta,.card,.mt,.scard,.sarr,.chip,.crow,.pts li,.fs-img,.gal-card,.gal-cap,.rrow,.rside,.tlk,.tlist li,.qcol,.cv-lg,.ct-lg,.cv-eb,.cv-t,.cv-s,.cv-a,.cv-o';
+const RV='.eyebrow,.h1,.lead,.badge,.mfoot,.corg,.cta,.card,.mt,.scard,.sarr,.chip,.crow,.pts li,.fs-img,.gal-card,.gal-cap,.vid-card,.vid-cap,.rrow,.rside,.tlk,.tlist li,.qcol,.cv-lg,.ct-lg,.cv-eb,.cv-t,.cv-s,.cv-a,.cv-o';
 function prepAnim(t){ if(STATIC)return; t.classList.add('anim');$$(RV,t).forEach((x,j)=>{x.classList.add('rv');x.style.setProperty('--i',j)}) }
 function runCounts(t){ if(STATIC)return;
  $$('.num',t).forEach(el=>{ if(el.dataset.done)return;el.dataset.done=1;
