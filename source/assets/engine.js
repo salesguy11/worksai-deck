@@ -16,7 +16,7 @@ const COMMON={bg:E(['light','parch','dark']),ev:EV,notes:S(500),src:S(120)};
 const CATALOG={
  cover:{eyebrow:S(40),title:S(16,1),subtitle:S(46,1),accent:S(90),org:S(40),image:S(40,1)},
  statement:{eyebrow:S(30),title:S(60,1),lead:S(130),badge:S(30),badgeEv:EV},
- section:{eyebrow:S(30),title:S(36,1),lead:S(140),chips:AR(0,6,S(22))},
+ section:{eyebrow:S(30),title:S(36,1),lead:S(140),chips:AR(0,8,S(22))},
  cards:{eyebrow:S(30),title:S(40,1),lead:S(110),badge:S(40),items:AR(2,4,{title:S(24,1),body:S(110,1),ev:EV})},
  metrics:{eyebrow:S(30),title:S(40,1),lead:S(110),items:AR(3,12,{value:S(10,1),unit:S(8),label:S(34,1),badge:S(18),ev:EV}),foot:S(110)},
  steps:{eyebrow:S(30),title:S(40,1),lead:S(110),items:AR(3,5,{title:S(22,1),body:S(100,1),ev:EV})},
