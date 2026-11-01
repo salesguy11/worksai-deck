@@ -30,7 +30,7 @@ const CATALOG={
  'wf-demo':{eyebrow:S(30),title:S(30,1),lead:S(100),points:AR(0,3,{text:S(60,1)}),prompt:S(70,1),sched:S(40,1),steps:AR(3,6,{t:S(26,1),tag:S(8)}),results:AR(2,4,{t:S(30,1),d:S(16,1)})},
  'feat-scroll':{eyebrow:S(30),big:{value:S(6,1),unit:S(4)},cap:S(40),title:S(40,1),lead:S(110),items:AR(3,9,{value:S(6,1),unit:S(6),label:S(30,1)}),chips:AR(0,4,S(22)),tag:S(10),list:AR(6,40,S(22))},
  'guard-demo':{eyebrow:S(30),big:{value:S(6,1),unit:S(6)},cap:S(40),title:S(40,1),lead:S(130),items:AR(3,9,{value:S(8,1),unit:S(8),label:S(30,1)}),chips:AR(0,4,S(24)),card:{label:S(20,1),msg:S(40,1),status:S(40,1),done:S(40,1),fields:AR(2,4,{k:S(12,1),v:S(22,1),m:S(22,1)})}},
- 'chat-demo':{eyebrow:S(30),title:S(30,1),lead:S(100),points:AR(0,3,{text:S(60,1)}),vendors:AR(3,6,S(12)),rounds:AR(2,3,{model:S(24,1),vi:E(['0','1','2','3','4','5']),q:S(50,1),tools:AR(1,3,{t:S(26,1),tag:S(10),pt:E(['0','1','2'])}),a:S(120,1)})},
+ 'chat-demo':{eyebrow:S(30),title:S(30,1),lead:S(100),points:AR(0,4,{text:S(60,1)}),vendors:AR(3,6,S(12)),rounds:AR(2,4,{model:S(24,1),vi:E(['0','1','2','3','4','5']),q:S(50,1),tools:AR(1,3,{t:S(26,1),tag:S(10),pt:E(['0','1','2','3'])}),a:S(120,1)})},
  contact:{eyebrow:S(30),title:S(30,1),lead:S(100),rows:AR(1,6,{label:S(16,1),value:S(60,1),href:S(200)}),org:S(40),cta:{text:S(24,1),href:S(200,1)}}
 };
 const len=s=>Array.from(String(s)).length;
