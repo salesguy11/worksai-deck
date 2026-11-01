@@ -413,6 +413,36 @@ html:not(.pres){scroll-snap-type:y proximity;scroll-padding-top:44px}
 .t-qa-case .body.q1.nohd{justify-content:center}
 .nohd.q1 .qcase{flex:none;height:620px}
 
+/* wf-demo: workflow motion */
+.t-wf-demo .body{flex-direction:row;align-items:center;gap:80px}
+.wf{flex:1;min-width:0;display:flex;flex-direction:column;gap:14px;padding:30px 34px;background:var(--surf);border-radius:22px;transition:opacity .45s}
+.wf.fadeout{opacity:0}
+.wf-in{display:flex;flex-direction:column;gap:8px}
+.wf-lab{font-size:20px;font-weight:600;color:var(--mut)}
+.wf-prompt{padding:16px 24px;border-radius:16px;background:color-mix(in srgb,var(--acc) 14%,transparent);font-size:28px;line-height:1.4;font-weight:600;min-height:1.4em}
+.wf-sched{display:flex;align-items:center;gap:14px;font-size:24px}
+.wf-sched i{font-style:normal;padding:4px 16px;border-radius:9999px;background:var(--acc);color:var(--onacc);font-size:20px;font-weight:700}
+.wf-steps{margin:0;padding:0;list-style:none;display:flex;flex-direction:column;gap:9px}
+.wf-steps li{display:flex;align-items:center;gap:16px;padding:11px 20px;border-radius:14px;background:color-mix(in srgb,var(--fg) 7%,transparent);font-size:26px;transition:background .3s,opacity .3s,transform .3s}
+.wf-steps .n{flex:none;width:36px;height:36px;border-radius:50%;background:color-mix(in srgb,var(--fg) 14%,transparent);display:flex;align-items:center;justify-content:center;font-size:20px;font-weight:700}
+.wf-steps .t{flex:1;font-weight:600}
+.wf-steps em{font-style:normal;font-size:18px;padding:2px 12px;border-radius:9999px;border:1.5px solid var(--line);color:var(--mut)}
+.wf-steps .st{width:108px;text-align:right;font-size:22px;color:var(--mut)}
+.wf-steps li.run{background:color-mix(in srgb,var(--acc) 18%,transparent)}
+.wf-steps li.run .st{color:var(--acc);font-weight:700}
+.wf-steps li.done .st{color:var(--acc);font-weight:700}
+.wf-steps li.done .n{background:var(--acc);color:var(--onacc)}
+.wf-res{display:flex;flex-direction:column;gap:7px;margin-top:6px;padding-top:12px;border-top:1px solid var(--line)}
+.wf-rh{font-size:24px;font-weight:700}
+.wf-rh small{font-size:19px;font-weight:500;color:var(--mut);margin-left:10px}
+.wf-r{display:flex;justify-content:space-between;padding:9px 20px;border-radius:12px;background:color-mix(in srgb,var(--acc) 10%,transparent);font-size:24px;transition:opacity .35s,transform .35s}
+.wf-r b{color:var(--acc);font-weight:700}
+.anim .wf-sched{opacity:0;transition:opacity .35s}.anim .wf-sched.on{opacity:1}
+.anim .wf-steps li:not(.show){opacity:0;transform:translateY(8px)}
+.anim .wf-r{opacity:0;transform:translateY(8px)}.anim .wf-r.on{opacity:1;transform:none}
+.anim .pts li{transition:color .3s}
+.pts li.hl{color:var(--acc);font-weight:700}
+
 </style></head>
 <body>
 <div id="app"></div>
@@ -899,7 +929,7 @@ END_DECK_EDIT_CONTRACT -->
       ]
     },
     {
-      "type": "feature-shot",
+      "type": "wf-demo",
       "eyebrow": "FEATURE · 워크플로우",
       "title": "반복 업무를 자동으로",
       "lead": "자동화 경험이 없어도 자연어 한 줄로 시작합니다.",
@@ -914,9 +944,50 @@ END_DECK_EDIT_CONTRACT -->
           "text": "결과물이 검색 가능한 회사 자산으로 쌓임"
         }
       ],
-      "image": "workflow",
-      "alt": "웍스AI 워크플로우 자동화 화면 캡처",
-      "side": "left"
+      "prompt": "평일 아침 8시에 뉴스와 공시, 경제지표를 모아 브리핑 메일로 보내줘",
+      "sched": "매주 월~금 오전 8시 · 서울",
+      "steps": [
+        {
+          "t": "국내 뉴스 검색",
+          "tag": "뉴스"
+        },
+        {
+          "t": "DART 공시 검색",
+          "tag": "공시"
+        },
+        {
+          "t": "한국은행 경제지표 조회",
+          "tag": "지표"
+        },
+        {
+          "t": "AI가 메일 우선순위 분류",
+          "tag": "AI"
+        },
+        {
+          "t": "AI가 아침 브리핑 한 장 정리",
+          "tag": "AI"
+        },
+        {
+          "t": "브리핑을 메일로 보내기",
+          "tag": "메일"
+        }
+      ],
+      "results": [
+        {
+          "t": "아침 브리핑 · 오늘",
+          "d": "메일 발송 완료"
+        },
+        {
+          "t": "아침 브리핑 · 어제",
+          "d": "저장됨"
+        },
+        {
+          "t": "아침 브리핑 · 그제",
+          "d": "저장됨"
+        }
+      ],
+      "src": "웍스AI 워크플로우 화면을 단순화한 예시 (실제 화면과 다를 수 있음)",
+      "notes": "위 화면은 웍스AI 워크플로우 소개 영상의 예시(아침 브리핑)를 단순화한 모션이다. 자연어 한 줄로 일정과 단계가 만들어지고, 정한 시각에 단계가 차례로 실행되며, 결과물이 모여 검색 가능한 자산이 된다. 실제 화면과 다를 수 있고 사용 가능한 도구는 계약 조건과 설정에 따른다."
     },
     {
       "type": "feature-shot",
@@ -1161,6 +1232,7 @@ const CATALOG={
  gallery:{eyebrow:S(30),title:S(40,1),lead:S(110),image:S(40,1),alt:S(140,1),caption:S(80)},
  video:{eyebrow:S(30),title:S(40,1),lead:S(110),file:S(80,1),poster:S(40),caption:S(80)},
  'qa-case':{eyebrow:S(30),title:S(40),lead:S(110),image:S(40),alt:S(140),cases:AR(1,2,{tag:S(16),name:S(24,1),desc:S(110,1),depts:AR(2,6,S(10)),agent:S(24,1),rounds:AR(2,4,{dept:S(10,1),q:S(50,1),a:S(150,1)})})},
+ 'wf-demo':{eyebrow:S(30),title:S(30,1),lead:S(100),points:AR(0,3,{text:S(60,1)}),prompt:S(70,1),sched:S(40,1),steps:AR(3,6,{t:S(26,1),tag:S(8)}),results:AR(2,4,{t:S(30,1),d:S(16,1)})},
  contact:{eyebrow:S(30),title:S(30,1),lead:S(100),rows:AR(1,6,{label:S(16,1),value:S(60,1),href:S(200)}),org:S(40),cta:{text:S(24,1),href:S(200,1)}}
 };
 const len=s=>Array.from(String(s)).length;
@@ -1216,6 +1288,7 @@ const R={
  video:p=>`<div class="body">${head(p)}<div class="vid-card"><video controls preload="metadata" playsinline${p.poster&&ASSETS[p.poster]?` poster="${ASSETS[p.poster]}"`:''} src="${esc(p.file)}">영상을 재생할 수 없는 환경입니다.</video></div>${p.caption?`<div class="vid-cap">${esc(p.caption)}</div>`:''}</div>`,
  'qa-case':p=>{const T=(x)=>`<span class="tx" data-t="${esc(x)}"><span class="tv">${esc(x)}</span><span class="th"></span></span>`;
   return `<div class="body q${p.cases.length}${p.title?'':' nohd'}">${p.title?head(p):''}${p.image?`<div class="qshot"><img src="${ASSETS[p.image]||''}" alt="${esc(p.alt||'')}"></div>`:''}${p.cases.map(c=>`<div class="qcase"><div class="qleft"><div class="qtag">${esc(c.tag||'')}</div><h2>${esc(c.name)}</h2><p>${rich(c.desc)}</p><div class="qdep">${c.depts.map(d=>`<span>${esc(d)}</span>`).join('')}</div></div><div class="qa-chat"><div class="qtabs"><i>질문하는 부서</i>${c.rounds.map((x,j)=>`<span class="${j?'':'on'}">${esc(x.dept)}</span>`).join('')}</div><div class="qstage">${c.rounds.map((x,j)=>`<div class="qr${j?'':' on'}"><div class="qask show"><span class="qwho">${esc(x.dept)} 질문</span><div class="qbub">${T(x.q)}</div></div><div class="qans show"><span class="qwho">${esc(c.agent)}</span><div class="qbub">${T(x.a)}</div></div></div>`).join('')}</div></div></div>`).join('')}</div>`},
+ 'wf-demo':p=>`<div class="body"><div class="wf"><div class="wf-in"><span class="wf-lab">말로 한 줄</span><div class="wf-prompt"><span class="tx" data-t="${esc(p.prompt)}"><span class="tv">${esc(p.prompt)}</span><span class="th"></span></span></div></div><div class="wf-sched on"><i>일정</i><b>${esc(p.sched)}</b></div><ol class="wf-steps">${p.steps.map((x,j)=>`<li class="show done"><span class="n">${j+1}</span><span class="t">${esc(x.t)}</span>${x.tag?`<em>${esc(x.tag)}</em>`:''}<span class="st">완료</span></li>`).join('')}</ol><div class="wf-res"><div class="wf-rh">결과물 모음 <small>검색 가능한 회사 자산으로 쌓입니다</small></div>${p.results.map(x=>`<div class="wf-r on"><span>${esc(x.t)}</span><b>${esc(x.d)}</b></div>`).join('')}</div></div><div class="fs-text">${eb(p)}<h1 class="h1">${rich(p.title)}</h1>${p.lead?`<p class="lead">${rich(p.lead)}</p>`:''}${(p.points||[]).length?`<ul class="pts">${p.points.map(x=>`<li>${rich(x.text)}</li>`).join('')}</ul>`:''}</div></div>`,
  contact:p=>`<div class="body">${eb(p)}<h1 class="h1">${rich(p.title)}</h1>${p.lead?`<p class="lead">${rich(p.lead)}</p>`:''}<div class="crows">${p.rows.map(r=>`<div class="crow"><span>${esc(r.label)}</span><b>${r.href?`<a href="${esc(r.href)}">${esc(r.value)}</a>`:esc(r.value)}</b></div>`).join('')}</div>${p.cta?`<div><a class="cta" href="${esc(p.cta.href)}">${esc(p.cta.text)}</a></div>`:''}${p.org?`<div class="corg">${esc(p.org)}</div>`:''}${chip('ct-lg')}</div>`
 };
 const num=v=>{const s=String(v);return /^\d[\d,]*(\.\d+)?$/.test(s)?`<span class="num" data-to="${s.replace(/,/g,'')}" data-dec="${(s.split('.')[1]||'').length}" data-c="${s.includes(',')?1:0}">${esc(s)}</span>`:esc(s)};
@@ -1254,7 +1327,27 @@ function qaStart(t){ $$('.qa-chat',t).forEach((ch,ci)=>{
    if(!await typeTo($('.tx',ans),20))return;await sl(4200);if(!ok())return;
    r.classList.remove('on');await sl(450) } } })();
  }) }
+function wfStart(t){ $$('.wf',t).forEach(w=>{
+ w._tok=(w._tok||0)+1;const my=w._tok,ok=()=>w._tok===my&&t.isConnected&&t.classList.contains('in');
+ const tx=$('.tx',w),sc=$('.wf-sched',w),lis=$$('.wf-steps li',w),rs=$$('.wf-r',w),pts=$$('.pts li',t);
+ const setTx=k=>{const f=tx.dataset.t;tx.firstChild.textContent=f.slice(0,k);tx.lastChild.textContent=f.slice(k)};
+ const hl=i=>pts.forEach((x,j)=>x.classList.toggle('hl',j===i));
+ const reset=()=>{setTx(0);sc.classList.remove('on');lis.forEach(l=>{l.classList.remove('show','run','done');$('.st',l).textContent='대기'});rs.forEach(r=>r.classList.remove('on'));hl(-1)};
+ reset();
+ (async()=>{ await sl(600);
+  while(ok()){ reset();await sl(500);if(!ok())return;
+   hl(0);const n=tx.dataset.t.length;for(let k=1;k<=n;k++){if(!ok())return;setTx(k);await sl(40)}
+   await sl(450);sc.classList.add('on');await sl(650);if(!ok())return;
+   for(const l of lis){if(!ok())return;l.classList.add('show');await sl(320)}
+   await sl(700);hl(1);
+   for(const l of lis){if(!ok())return;l.classList.add('run');$('.st',l).textContent='처리 중';await sl(950);l.classList.remove('run');l.classList.add('done');$('.st',l).textContent='완료';await sl(150)}
+   await sl(500);hl(2);
+   for(const r of rs){if(!ok())return;r.classList.add('on');await sl(550)}
+   await sl(5200);if(!ok())return;
+   w.classList.add('fadeout');await sl(500);w.classList.remove('fadeout') } })();
+ }) }
 function runCounts(t){ if(STATIC)return;
+ wfStart(t);
  qaStart(t);
  $$('.num',t).forEach(el=>{ if(el.dataset.done)return;el.dataset.done=1;
   const to=+el.dataset.to,dec=+el.dataset.dec,cm=el.dataset.c==='1',fin=el.textContent;

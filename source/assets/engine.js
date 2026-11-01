@@ -27,6 +27,7 @@ const CATALOG={
  gallery:{eyebrow:S(30),title:S(40,1),lead:S(110),image:S(40,1),alt:S(140,1),caption:S(80)},
  video:{eyebrow:S(30),title:S(40,1),lead:S(110),file:S(80,1),poster:S(40),caption:S(80)},
  'qa-case':{eyebrow:S(30),title:S(40),lead:S(110),image:S(40),alt:S(140),cases:AR(1,2,{tag:S(16),name:S(24,1),desc:S(110,1),depts:AR(2,6,S(10)),agent:S(24,1),rounds:AR(2,4,{dept:S(10,1),q:S(50,1),a:S(150,1)})})},
+ 'wf-demo':{eyebrow:S(30),title:S(30,1),lead:S(100),points:AR(0,3,{text:S(60,1)}),prompt:S(70,1),sched:S(40,1),steps:AR(3,6,{t:S(26,1),tag:S(8)}),results:AR(2,4,{t:S(30,1),d:S(16,1)})},
  contact:{eyebrow:S(30),title:S(30,1),lead:S(100),rows:AR(1,6,{label:S(16,1),value:S(60,1),href:S(200)}),org:S(40),cta:{text:S(24,1),href:S(200,1)}}
 };
 const len=s=>Array.from(String(s)).length;
@@ -82,6 +83,7 @@ const R={
  video:p=>`<div class="body">${head(p)}<div class="vid-card"><video controls preload="metadata" playsinline${p.poster&&ASSETS[p.poster]?` poster="${ASSETS[p.poster]}"`:''} src="${esc(p.file)}">영상을 재생할 수 없는 환경입니다.</video></div>${p.caption?`<div class="vid-cap">${esc(p.caption)}</div>`:''}</div>`,
  'qa-case':p=>{const T=(x)=>`<span class="tx" data-t="${esc(x)}"><span class="tv">${esc(x)}</span><span class="th"></span></span>`;
   return `<div class="body q${p.cases.length}${p.title?'':' nohd'}">${p.title?head(p):''}${p.image?`<div class="qshot"><img src="${ASSETS[p.image]||''}" alt="${esc(p.alt||'')}"></div>`:''}${p.cases.map(c=>`<div class="qcase"><div class="qleft"><div class="qtag">${esc(c.tag||'')}</div><h2>${esc(c.name)}</h2><p>${rich(c.desc)}</p><div class="qdep">${c.depts.map(d=>`<span>${esc(d)}</span>`).join('')}</div></div><div class="qa-chat"><div class="qtabs"><i>질문하는 부서</i>${c.rounds.map((x,j)=>`<span class="${j?'':'on'}">${esc(x.dept)}</span>`).join('')}</div><div class="qstage">${c.rounds.map((x,j)=>`<div class="qr${j?'':' on'}"><div class="qask show"><span class="qwho">${esc(x.dept)} 질문</span><div class="qbub">${T(x.q)}</div></div><div class="qans show"><span class="qwho">${esc(c.agent)}</span><div class="qbub">${T(x.a)}</div></div></div>`).join('')}</div></div></div>`).join('')}</div>`},
+ 'wf-demo':p=>`<div class="body"><div class="wf"><div class="wf-in"><span class="wf-lab">말로 한 줄</span><div class="wf-prompt"><span class="tx" data-t="${esc(p.prompt)}"><span class="tv">${esc(p.prompt)}</span><span class="th"></span></span></div></div><div class="wf-sched on"><i>일정</i><b>${esc(p.sched)}</b></div><ol class="wf-steps">${p.steps.map((x,j)=>`<li class="show done"><span class="n">${j+1}</span><span class="t">${esc(x.t)}</span>${x.tag?`<em>${esc(x.tag)}</em>`:''}<span class="st">완료</span></li>`).join('')}</ol><div class="wf-res"><div class="wf-rh">결과물 모음 <small>검색 가능한 회사 자산으로 쌓입니다</small></div>${p.results.map(x=>`<div class="wf-r on"><span>${esc(x.t)}</span><b>${esc(x.d)}</b></div>`).join('')}</div></div><div class="fs-text">${eb(p)}<h1 class="h1">${rich(p.title)}</h1>${p.lead?`<p class="lead">${rich(p.lead)}</p>`:''}${(p.points||[]).length?`<ul class="pts">${p.points.map(x=>`<li>${rich(x.text)}</li>`).join('')}</ul>`:''}</div></div>`,
  contact:p=>`<div class="body">${eb(p)}<h1 class="h1">${rich(p.title)}</h1>${p.lead?`<p class="lead">${rich(p.lead)}</p>`:''}<div class="crows">${p.rows.map(r=>`<div class="crow"><span>${esc(r.label)}</span><b>${r.href?`<a href="${esc(r.href)}">${esc(r.value)}</a>`:esc(r.value)}</b></div>`).join('')}</div>${p.cta?`<div><a class="cta" href="${esc(p.cta.href)}">${esc(p.cta.text)}</a></div>`:''}${p.org?`<div class="corg">${esc(p.org)}</div>`:''}${chip('ct-lg')}</div>`
 };
 const num=v=>{const s=String(v);return /^\d[\d,]*(\.\d+)?$/.test(s)?`<span class="num" data-to="${s.replace(/,/g,'')}" data-dec="${(s.split('.')[1]||'').length}" data-c="${s.includes(',')?1:0}">${esc(s)}</span>`:esc(s)};
@@ -120,7 +122,27 @@ function qaStart(t){ $$('.qa-chat',t).forEach((ch,ci)=>{
    if(!await typeTo($('.tx',ans),20))return;await sl(4200);if(!ok())return;
    r.classList.remove('on');await sl(450) } } })();
  }) }
+function wfStart(t){ $$('.wf',t).forEach(w=>{
+ w._tok=(w._tok||0)+1;const my=w._tok,ok=()=>w._tok===my&&t.isConnected&&t.classList.contains('in');
+ const tx=$('.tx',w),sc=$('.wf-sched',w),lis=$$('.wf-steps li',w),rs=$$('.wf-r',w),pts=$$('.pts li',t);
+ const setTx=k=>{const f=tx.dataset.t;tx.firstChild.textContent=f.slice(0,k);tx.lastChild.textContent=f.slice(k)};
+ const hl=i=>pts.forEach((x,j)=>x.classList.toggle('hl',j===i));
+ const reset=()=>{setTx(0);sc.classList.remove('on');lis.forEach(l=>{l.classList.remove('show','run','done');$('.st',l).textContent='대기'});rs.forEach(r=>r.classList.remove('on'));hl(-1)};
+ reset();
+ (async()=>{ await sl(600);
+  while(ok()){ reset();await sl(500);if(!ok())return;
+   hl(0);const n=tx.dataset.t.length;for(let k=1;k<=n;k++){if(!ok())return;setTx(k);await sl(40)}
+   await sl(450);sc.classList.add('on');await sl(650);if(!ok())return;
+   for(const l of lis){if(!ok())return;l.classList.add('show');await sl(320)}
+   await sl(700);hl(1);
+   for(const l of lis){if(!ok())return;l.classList.add('run');$('.st',l).textContent='처리 중';await sl(950);l.classList.remove('run');l.classList.add('done');$('.st',l).textContent='완료';await sl(150)}
+   await sl(500);hl(2);
+   for(const r of rs){if(!ok())return;r.classList.add('on');await sl(550)}
+   await sl(5200);if(!ok())return;
+   w.classList.add('fadeout');await sl(500);w.classList.remove('fadeout') } })();
+ }) }
 function runCounts(t){ if(STATIC)return;
+ wfStart(t);
  qaStart(t);
  $$('.num',t).forEach(el=>{ if(el.dataset.done)return;el.dataset.done=1;
   const to=+el.dataset.to,dec=+el.dataset.dec,cm=el.dataset.c==='1',fin=el.textContent;
