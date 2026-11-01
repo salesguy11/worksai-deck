@@ -232,3 +232,11 @@ html:not(.pres){scroll-snap-type:y proximity;scroll-padding-top:44px}
 .vid-card{flex:none;margin:20px auto 0;width:960px;height:540px;border-radius:18px;overflow:hidden;box-shadow:rgba(0,0,0,.22) 3px 5px 30px;background:#000}
 .vid-card video{display:block;width:100%;height:100%;object-fit:contain;background:#000}
 .vid-cap{margin-top:18px;text-align:center;font-size:26px;color:var(--mut,#6e6e73)}
+
+/* quotes summary + bold keys; gallery caption/source layout */
+.qsum{margin-top:18px;padding:14px 18px;border-radius:12px;background:color-mix(in srgb,var(--acc) 12%,transparent);font-size:27px;line-height:1.35;font-weight:700;color:var(--acc)}
+.qa p .lt{font-weight:700;color:inherit}
+.t-gallery .tsrc{text-align:right}
+.t-gallery .gal-card img{width:1240px}
+.t-gallery .gal-card{margin:40px auto 0}
+.t-gallery .gal-cap{margin:auto 0 64px;padding-top:24px}
