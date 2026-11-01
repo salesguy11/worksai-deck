@@ -443,6 +443,27 @@ html:not(.pres){scroll-snap-type:y proximity;scroll-padding-top:44px}
 .anim .pts li{transition:color .3s}
 .pts li.hl{color:var(--acc);font-weight:700}
 
+/* feat-scroll: all-in-one list scrolling */
+.t-feat-scroll .body{flex-direction:row;align-items:center;gap:70px}
+.fl-l{flex:0 0 880px}
+.fl-big{display:flex;align-items:baseline;gap:6px;color:var(--acc);font-size:128px;line-height:1;font-weight:800;letter-spacing:-.03em;margin-top:6px}
+.fl-big small{font-size:96px;font-weight:800}
+.fl-big .fl-cap{margin-left:20px;font-size:26px;line-height:1.35;font-weight:500;color:var(--mut);letter-spacing:0}
+.fl-l .h1{font-size:50px;margin-top:26px}
+.fl-l .lead{font-size:26px;margin-top:14px}
+.fl-st{display:grid;grid-template-columns:repeat(3,1fr);gap:20px 28px;margin-top:26px;padding-top:24px;border-top:1px solid var(--line)}
+.fl-v{font-size:40px;font-weight:800;color:var(--acc);line-height:1.1}
+.fl-v small{font-size:32px;font-weight:800}
+.fl-t{margin-top:4px;font-size:21px;color:var(--mut)}
+.fl-ch{display:flex;gap:12px;margin-top:26px}
+.fl-ch span{padding:10px 24px;border:1.5px solid var(--line);border-radius:9999px;font-size:22px;font-weight:600}
+.fl{flex:1;min-width:0;height:620px;border-radius:24px;background:var(--surf);border:1px solid var(--line);box-shadow:rgba(0,0,0,.08) 0 12px 40px;overflow:hidden;-webkit-mask-image:linear-gradient(transparent,#000 9%,#000 91%,transparent);mask-image:linear-gradient(transparent,#000 9%,#000 91%,transparent)}
+.fl-track{padding:8px 32px}
+.fl-r{display:flex;align-items:center;gap:20px;height:68px;font-size:30px;font-weight:600}
+.fl-r i{flex:none;width:14px;height:14px;border-radius:50%;background:var(--acc)}
+.fl-r span{flex:1}
+.fl-r b{font-size:23px;font-weight:700;color:var(--acc)}
+
 </style></head>
 <body>
 <div id="app"></div>
@@ -715,29 +736,34 @@ END_DECK_EDIT_CONTRACT -->
       "src": "웍스AI 제품 소개서 7쪽"
     },
     {
-      "type": "metrics",
+      "type": "feat-scroll",
       "eyebrow": "ALL-IN-ONE",
-      "title": "계정 하나에 64종의\n기능과 도구",
+      "big": {
+        "value": "70",
+        "unit": "종"
+      },
+      "cap": "계정 하나에\n들어있는 기능과 도구",
+      "title": "회사에 필요한 AI가 한 곳에 있습니다",
       "lead": "대화, 문서, 회의, 번역, 이미지, 영상, 자동화까지 업무에 쓰는 기능이 한 곳에 있습니다.",
       "items": [
         {
-          "value": "37",
+          "value": "38",
           "unit": "종",
           "label": "기본 제공 기능"
         },
         {
           "value": "11",
-          "unit": "종 +",
-          "label": "웍스 업무 미니앱"
+          "unit": "종",
+          "label": "웍스+ 업무 미니앱"
         },
         {
-          "value": "16",
+          "value": "21",
           "unit": "종",
           "label": "에이전트 도구(MCP)"
         },
         {
           "value": "100",
-          "unit": "종 +",
+          "unit": "종+",
           "label": "골라 쓰는 AI 모델"
         },
         {
@@ -752,7 +778,7 @@ END_DECK_EDIT_CONTRACT -->
         },
         {
           "value": "200",
-          "unit": "종 +",
+          "unit": "종+",
           "label": "이미지·비디오 템플릿"
         },
         {
@@ -766,7 +792,54 @@ END_DECK_EDIT_CONTRACT -->
           "label": "슬라이드 템플릿"
         }
       ],
-      "src": "웍스AI 제품 소개서 8쪽"
+      "chips": [
+        "국내 최초 HWP 지원",
+        "매주 정기 업데이트",
+        "사내 ERP 직접 연결"
+      ],
+      "tag": "바로 사용",
+      "list": [
+        "AI 대화",
+        "업무 비서",
+        "문서 작성",
+        "문서 번역",
+        "슬라이드 생성",
+        "코딩 에이전트",
+        "웍스AI Desk",
+        "웍스 드라이브",
+        "실시간 검색",
+        "이미지 이해",
+        "음성 입력",
+        "PDF 분석",
+        "문서 OCR",
+        "차트 생성",
+        "나만의 에이전트",
+        "대화 예약",
+        "워크플로우",
+        "스킬",
+        "사내 시스템 연결",
+        "커스텀 MCP",
+        "이미지 생성",
+        "영상 생성",
+        "회의록 작성",
+        "브랜드 모니터링",
+        "프로덕트 스튜디오",
+        "SSO 조직도 연동",
+        "부서별 비용 한도",
+        "부서 격리",
+        "접속 환경 분리",
+        "IP 접속 제어",
+        "파일 다운로드 통제",
+        "개인정보 마스킹",
+        "금칙어 필터",
+        "감사 로그",
+        "사용량 대시보드",
+        "스마트 라우팅",
+        "프롬프트 캐싱",
+        "Claude Code 연동"
+      ],
+      "src": "웍스AI 홈페이지 기능 소개(wrks.ai) 2026년 11월 기준",
+      "notes": "오른쪽 목록은 기본 제공 기능 38종이 위로 흘러가며 보이는 화면이다. 모두 별도 구매 없이 계정 하나로 바로 쓴다. 숫자는 웍스AI 홈페이지 기준이며 매주 업데이트되므로 발표 전 최신 수치를 확인한다."
     },
     {
       "type": "section",
@@ -1233,6 +1306,7 @@ const CATALOG={
  video:{eyebrow:S(30),title:S(40,1),lead:S(110),file:S(80,1),poster:S(40),caption:S(80)},
  'qa-case':{eyebrow:S(30),title:S(40),lead:S(110),image:S(40),alt:S(140),cases:AR(1,2,{tag:S(16),name:S(24,1),desc:S(110,1),depts:AR(2,6,S(10)),agent:S(24,1),rounds:AR(2,4,{dept:S(10,1),q:S(50,1),a:S(150,1)})})},
  'wf-demo':{eyebrow:S(30),title:S(30,1),lead:S(100),points:AR(0,3,{text:S(60,1)}),prompt:S(70,1),sched:S(40,1),steps:AR(3,6,{t:S(26,1),tag:S(8)}),results:AR(2,4,{t:S(30,1),d:S(16,1)})},
+ 'feat-scroll':{eyebrow:S(30),big:{value:S(6,1),unit:S(4)},cap:S(40),title:S(40,1),lead:S(110),items:AR(3,9,{value:S(6,1),unit:S(6),label:S(30,1)}),chips:AR(0,4,S(22)),tag:S(10),list:AR(6,40,S(22))},
  contact:{eyebrow:S(30),title:S(30,1),lead:S(100),rows:AR(1,6,{label:S(16,1),value:S(60,1),href:S(200)}),org:S(40),cta:{text:S(24,1),href:S(200,1)}}
 };
 const len=s=>Array.from(String(s)).length;
@@ -1289,6 +1363,8 @@ const R={
  'qa-case':p=>{const T=(x)=>`<span class="tx" data-t="${esc(x)}"><span class="tv">${esc(x)}</span><span class="th"></span></span>`;
   return `<div class="body q${p.cases.length}${p.title?'':' nohd'}">${p.title?head(p):''}${p.image?`<div class="qshot"><img src="${ASSETS[p.image]||''}" alt="${esc(p.alt||'')}"></div>`:''}${p.cases.map(c=>`<div class="qcase"><div class="qleft"><div class="qtag">${esc(c.tag||'')}</div><h2>${esc(c.name)}</h2><p>${rich(c.desc)}</p><div class="qdep">${c.depts.map(d=>`<span>${esc(d)}</span>`).join('')}</div></div><div class="qa-chat"><div class="qtabs"><i>질문하는 부서</i>${c.rounds.map((x,j)=>`<span class="${j?'':'on'}">${esc(x.dept)}</span>`).join('')}</div><div class="qstage">${c.rounds.map((x,j)=>`<div class="qr${j?'':' on'}"><div class="qask show"><span class="qwho">${esc(x.dept)} 질문</span><div class="qbub">${T(x.q)}</div></div><div class="qans show"><span class="qwho">${esc(c.agent)}</span><div class="qbub">${T(x.a)}</div></div></div>`).join('')}</div></div></div>`).join('')}</div>`},
  'wf-demo':p=>`<div class="body"><div class="wf"><div class="wf-in"><span class="wf-lab">말로 한 줄</span><div class="wf-prompt"><span class="tx" data-t="${esc(p.prompt)}"><span class="tv">${esc(p.prompt)}</span><span class="th"></span></span></div></div><div class="wf-sched on"><i>일정</i><b>${esc(p.sched)}</b></div><ol class="wf-steps">${p.steps.map((x,j)=>`<li class="show done"><span class="n">${j+1}</span><span class="t">${esc(x.t)}</span>${x.tag?`<em>${esc(x.tag)}</em>`:''}<span class="st">완료</span></li>`).join('')}</ol><div class="wf-res"><div class="wf-rh">결과물 모음 <small>검색 가능한 회사 자산으로 쌓입니다</small></div>${p.results.map(x=>`<div class="wf-r on"><span>${esc(x.t)}</span><b>${esc(x.d)}</b></div>`).join('')}</div></div><div class="fs-text">${eb(p)}<h1 class="h1">${rich(p.title)}</h1>${p.lead?`<p class="lead">${rich(p.lead)}</p>`:''}${(p.points||[]).length?`<ul class="pts">${p.points.map(x=>`<li>${rich(x.text)}</li>`).join('')}</ul>`:''}</div></div>`,
+ 'feat-scroll':p=>{const row=x=>`<div class="fl-r"><i></i><span>${esc(x)}</span><b>${esc(p.tag||'')}</b></div>`;const L=p.list.slice(0,10).map(row).join('');
+  return `<div class="body"><div class="fl-l">${eb(p)}<div class="fl-big">${num(p.big.value)}<small>${esc(p.big.unit||'')}</small><span class="fl-cap">${rich(p.cap||'')}</span></div><h1 class="h1">${rich(p.title)}</h1>${p.lead?`<p class="lead">${rich(p.lead)}</p>`:''}<div class="fl-st">${p.items.map(m=>`<div class="fl-s"><div class="fl-v">${num(m.value)}<small>${esc(m.unit||'')}</small></div><div class="fl-t">${esc(m.label)}</div></div>`).join('')}</div>${(p.chips||[]).length?`<div class="fl-ch">${p.chips.map(c=>`<span>${esc(c)}</span>`).join('')}</div>`:''}</div><div class="fl" data-tag="${esc(p.tag||'')}" data-l="${esc(JSON.stringify(p.list))}"><div class="fl-track">${L}</div></div></div>`},
  contact:p=>`<div class="body">${eb(p)}<h1 class="h1">${rich(p.title)}</h1>${p.lead?`<p class="lead">${rich(p.lead)}</p>`:''}<div class="crows">${p.rows.map(r=>`<div class="crow"><span>${esc(r.label)}</span><b>${r.href?`<a href="${esc(r.href)}">${esc(r.value)}</a>`:esc(r.value)}</b></div>`).join('')}</div>${p.cta?`<div><a class="cta" href="${esc(p.cta.href)}">${esc(p.cta.text)}</a></div>`:''}${p.org?`<div class="corg">${esc(p.org)}</div>`:''}${chip('ct-lg')}</div>`
 };
 const num=v=>{const s=String(v);return /^\d[\d,]*(\.\d+)?$/.test(s)?`<span class="num" data-to="${s.replace(/,/g,'')}" data-dec="${(s.split('.')[1]||'').length}" data-c="${s.includes(',')?1:0}">${esc(s)}</span>`:esc(s)};
@@ -1307,7 +1383,7 @@ function buildTiles(){
   return t;
  });
 }
-const RV='.eyebrow,.h1,.lead,.badge,.mfoot,.corg,.cta,.card,.mt,.scard,.sarr,.chip,.crow,.pts li,.fs-img,.gal-card,.gal-cap,.vid-card,.vid-cap,.qshot,.qcase,.rrow,.rside,.tlk,.tlist li,.qcol,.cv-lg,.ct-lg,.cv-eb,.cv-t,.cv-s,.cv-a,.cv-o';
+const RV='.eyebrow,.h1,.lead,.badge,.mfoot,.corg,.cta,.card,.mt,.scard,.sarr,.chip,.crow,.pts li,.fs-img,.gal-card,.gal-cap,.vid-card,.vid-cap,.qshot,.qcase,.rrow,.rside,.tlk,.tlist li,.qcol,.fl,.fl-s,.fl-ch,.cv-lg,.ct-lg,.cv-eb,.cv-t,.cv-s,.cv-a,.cv-o';
 function prepAnim(t){ if(STATIC)return; t.classList.add('anim');$$(RV,t).forEach((x,j)=>{x.classList.add('rv');x.style.setProperty('--i',j)}) }
 const sl=ms=>new Promise(r=>setTimeout(r,ms));
 function qaStart(t){ $$('.qa-chat',t).forEach((ch,ci)=>{
@@ -1346,7 +1422,17 @@ function wfStart(t){ $$('.wf',t).forEach(w=>{
    await sl(5200);if(!ok())return;
    w.classList.add('fadeout');await sl(500);w.classList.remove('fadeout') } })();
  }) }
+function flStart(t){ $$('.fl',t).forEach(f=>{
+ f._tok=(f._tok||0)+1;const my=f._tok,ok=()=>f._tok===my&&t.isConnected&&t.classList.contains('in');
+ const L=JSON.parse(f.dataset.l),tag=f.dataset.tag,tr=$('.fl-track',f),RH=68;let idx=10%L.length,off=0,last=performance.now();
+ const mk=x=>{const d=document.createElement('div');d.className='fl-r';d.innerHTML='<i></i><span></span><b></b>';d.children[1].textContent=x;d.children[2].textContent=tag;return d};
+ tr.innerHTML='';for(let k=0;k<10;k++)tr.appendChild(mk(L[k%L.length]));tr.style.transform='';
+ (function step(now){ if(!ok())return;const dt=Math.min(now-last,60);last=now;off+=dt*0.06;
+  while(off>=RH){off-=RH;tr.removeChild(tr.firstChild);tr.appendChild(mk(L[idx]));idx=(idx+1)%L.length}
+  tr.style.transform='translateY('+(-off)+'px)';requestAnimationFrame(step)})(performance.now());
+ }) }
 function runCounts(t){ if(STATIC)return;
+ flStart(t);
  wfStart(t);
  qaStart(t);
  $$('.num',t).forEach(el=>{ if(el.dataset.done)return;el.dataset.done=1;

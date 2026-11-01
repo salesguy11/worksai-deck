@@ -28,6 +28,7 @@ const CATALOG={
  video:{eyebrow:S(30),title:S(40,1),lead:S(110),file:S(80,1),poster:S(40),caption:S(80)},
  'qa-case':{eyebrow:S(30),title:S(40),lead:S(110),image:S(40),alt:S(140),cases:AR(1,2,{tag:S(16),name:S(24,1),desc:S(110,1),depts:AR(2,6,S(10)),agent:S(24,1),rounds:AR(2,4,{dept:S(10,1),q:S(50,1),a:S(150,1)})})},
  'wf-demo':{eyebrow:S(30),title:S(30,1),lead:S(100),points:AR(0,3,{text:S(60,1)}),prompt:S(70,1),sched:S(40,1),steps:AR(3,6,{t:S(26,1),tag:S(8)}),results:AR(2,4,{t:S(30,1),d:S(16,1)})},
+ 'feat-scroll':{eyebrow:S(30),big:{value:S(6,1),unit:S(4)},cap:S(40),title:S(40,1),lead:S(110),items:AR(3,9,{value:S(6,1),unit:S(6),label:S(30,1)}),chips:AR(0,4,S(22)),tag:S(10),list:AR(6,40,S(22))},
  contact:{eyebrow:S(30),title:S(30,1),lead:S(100),rows:AR(1,6,{label:S(16,1),value:S(60,1),href:S(200)}),org:S(40),cta:{text:S(24,1),href:S(200,1)}}
 };
 const len=s=>Array.from(String(s)).length;
@@ -84,6 +85,8 @@ const R={
  'qa-case':p=>{const T=(x)=>`<span class="tx" data-t="${esc(x)}"><span class="tv">${esc(x)}</span><span class="th"></span></span>`;
   return `<div class="body q${p.cases.length}${p.title?'':' nohd'}">${p.title?head(p):''}${p.image?`<div class="qshot"><img src="${ASSETS[p.image]||''}" alt="${esc(p.alt||'')}"></div>`:''}${p.cases.map(c=>`<div class="qcase"><div class="qleft"><div class="qtag">${esc(c.tag||'')}</div><h2>${esc(c.name)}</h2><p>${rich(c.desc)}</p><div class="qdep">${c.depts.map(d=>`<span>${esc(d)}</span>`).join('')}</div></div><div class="qa-chat"><div class="qtabs"><i>질문하는 부서</i>${c.rounds.map((x,j)=>`<span class="${j?'':'on'}">${esc(x.dept)}</span>`).join('')}</div><div class="qstage">${c.rounds.map((x,j)=>`<div class="qr${j?'':' on'}"><div class="qask show"><span class="qwho">${esc(x.dept)} 질문</span><div class="qbub">${T(x.q)}</div></div><div class="qans show"><span class="qwho">${esc(c.agent)}</span><div class="qbub">${T(x.a)}</div></div></div>`).join('')}</div></div></div>`).join('')}</div>`},
  'wf-demo':p=>`<div class="body"><div class="wf"><div class="wf-in"><span class="wf-lab">말로 한 줄</span><div class="wf-prompt"><span class="tx" data-t="${esc(p.prompt)}"><span class="tv">${esc(p.prompt)}</span><span class="th"></span></span></div></div><div class="wf-sched on"><i>일정</i><b>${esc(p.sched)}</b></div><ol class="wf-steps">${p.steps.map((x,j)=>`<li class="show done"><span class="n">${j+1}</span><span class="t">${esc(x.t)}</span>${x.tag?`<em>${esc(x.tag)}</em>`:''}<span class="st">완료</span></li>`).join('')}</ol><div class="wf-res"><div class="wf-rh">결과물 모음 <small>검색 가능한 회사 자산으로 쌓입니다</small></div>${p.results.map(x=>`<div class="wf-r on"><span>${esc(x.t)}</span><b>${esc(x.d)}</b></div>`).join('')}</div></div><div class="fs-text">${eb(p)}<h1 class="h1">${rich(p.title)}</h1>${p.lead?`<p class="lead">${rich(p.lead)}</p>`:''}${(p.points||[]).length?`<ul class="pts">${p.points.map(x=>`<li>${rich(x.text)}</li>`).join('')}</ul>`:''}</div></div>`,
+ 'feat-scroll':p=>{const row=x=>`<div class="fl-r"><i></i><span>${esc(x)}</span><b>${esc(p.tag||'')}</b></div>`;const L=p.list.slice(0,10).map(row).join('');
+  return `<div class="body"><div class="fl-l">${eb(p)}<div class="fl-big">${num(p.big.value)}<small>${esc(p.big.unit||'')}</small><span class="fl-cap">${rich(p.cap||'')}</span></div><h1 class="h1">${rich(p.title)}</h1>${p.lead?`<p class="lead">${rich(p.lead)}</p>`:''}<div class="fl-st">${p.items.map(m=>`<div class="fl-s"><div class="fl-v">${num(m.value)}<small>${esc(m.unit||'')}</small></div><div class="fl-t">${esc(m.label)}</div></div>`).join('')}</div>${(p.chips||[]).length?`<div class="fl-ch">${p.chips.map(c=>`<span>${esc(c)}</span>`).join('')}</div>`:''}</div><div class="fl" data-tag="${esc(p.tag||'')}" data-l="${esc(JSON.stringify(p.list))}"><div class="fl-track">${L}</div></div></div>`},
  contact:p=>`<div class="body">${eb(p)}<h1 class="h1">${rich(p.title)}</h1>${p.lead?`<p class="lead">${rich(p.lead)}</p>`:''}<div class="crows">${p.rows.map(r=>`<div class="crow"><span>${esc(r.label)}</span><b>${r.href?`<a href="${esc(r.href)}">${esc(r.value)}</a>`:esc(r.value)}</b></div>`).join('')}</div>${p.cta?`<div><a class="cta" href="${esc(p.cta.href)}">${esc(p.cta.text)}</a></div>`:''}${p.org?`<div class="corg">${esc(p.org)}</div>`:''}${chip('ct-lg')}</div>`
 };
 const num=v=>{const s=String(v);return /^\d[\d,]*(\.\d+)?$/.test(s)?`<span class="num" data-to="${s.replace(/,/g,'')}" data-dec="${(s.split('.')[1]||'').length}" data-c="${s.includes(',')?1:0}">${esc(s)}</span>`:esc(s)};
@@ -102,7 +105,7 @@ function buildTiles(){
   return t;
  });
 }
-const RV='.eyebrow,.h1,.lead,.badge,.mfoot,.corg,.cta,.card,.mt,.scard,.sarr,.chip,.crow,.pts li,.fs-img,.gal-card,.gal-cap,.vid-card,.vid-cap,.qshot,.qcase,.rrow,.rside,.tlk,.tlist li,.qcol,.cv-lg,.ct-lg,.cv-eb,.cv-t,.cv-s,.cv-a,.cv-o';
+const RV='.eyebrow,.h1,.lead,.badge,.mfoot,.corg,.cta,.card,.mt,.scard,.sarr,.chip,.crow,.pts li,.fs-img,.gal-card,.gal-cap,.vid-card,.vid-cap,.qshot,.qcase,.rrow,.rside,.tlk,.tlist li,.qcol,.fl,.fl-s,.fl-ch,.cv-lg,.ct-lg,.cv-eb,.cv-t,.cv-s,.cv-a,.cv-o';
 function prepAnim(t){ if(STATIC)return; t.classList.add('anim');$$(RV,t).forEach((x,j)=>{x.classList.add('rv');x.style.setProperty('--i',j)}) }
 const sl=ms=>new Promise(r=>setTimeout(r,ms));
 function qaStart(t){ $$('.qa-chat',t).forEach((ch,ci)=>{
@@ -141,7 +144,17 @@ function wfStart(t){ $$('.wf',t).forEach(w=>{
    await sl(5200);if(!ok())return;
    w.classList.add('fadeout');await sl(500);w.classList.remove('fadeout') } })();
  }) }
+function flStart(t){ $$('.fl',t).forEach(f=>{
+ f._tok=(f._tok||0)+1;const my=f._tok,ok=()=>f._tok===my&&t.isConnected&&t.classList.contains('in');
+ const L=JSON.parse(f.dataset.l),tag=f.dataset.tag,tr=$('.fl-track',f),RH=68;let idx=10%L.length,off=0,last=performance.now();
+ const mk=x=>{const d=document.createElement('div');d.className='fl-r';d.innerHTML='<i></i><span></span><b></b>';d.children[1].textContent=x;d.children[2].textContent=tag;return d};
+ tr.innerHTML='';for(let k=0;k<10;k++)tr.appendChild(mk(L[k%L.length]));tr.style.transform='';
+ (function step(now){ if(!ok())return;const dt=Math.min(now-last,60);last=now;off+=dt*0.06;
+  while(off>=RH){off-=RH;tr.removeChild(tr.firstChild);tr.appendChild(mk(L[idx]));idx=(idx+1)%L.length}
+  tr.style.transform='translateY('+(-off)+'px)';requestAnimationFrame(step)})(performance.now());
+ }) }
 function runCounts(t){ if(STATIC)return;
+ flStart(t);
  wfStart(t);
  qaStart(t);
  $$('.num',t).forEach(el=>{ if(el.dataset.done)return;el.dataset.done=1;
