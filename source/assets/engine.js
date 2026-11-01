@@ -30,6 +30,7 @@ const CATALOG={
  'wf-demo':{eyebrow:S(30),title:S(30,1),lead:S(100),points:AR(0,3,{text:S(60,1)}),prompt:S(70,1),sched:S(40,1),steps:AR(3,6,{t:S(26,1),tag:S(8)}),results:AR(2,4,{t:S(30,1),d:S(16,1)})},
  'feat-scroll':{eyebrow:S(30),big:{value:S(6,1),unit:S(4)},cap:S(40),title:S(40,1),lead:S(110),items:AR(3,9,{value:S(6,1),unit:S(6),label:S(30,1)}),chips:AR(0,4,S(22)),tag:S(10),list:AR(6,40,S(22))},
  'guard-demo':{eyebrow:S(30),big:{value:S(6,1),unit:S(6)},cap:S(40),title:S(40,1),lead:S(130),items:AR(3,9,{value:S(8,1),unit:S(8),label:S(30,1)}),chips:AR(0,4,S(24)),card:{label:S(20,1),msg:S(40,1),status:S(40,1),done:S(40,1),fields:AR(2,4,{k:S(12,1),v:S(22,1),m:S(22,1)})}},
+ 'chat-demo':{eyebrow:S(30),title:S(30,1),lead:S(100),points:AR(0,3,{text:S(60,1)}),vendors:AR(3,6,S(12)),rounds:AR(2,3,{model:S(24,1),vi:E(['0','1','2','3','4','5']),q:S(50,1),tools:AR(1,3,{t:S(26,1),tag:S(10),pt:E(['0','1','2'])}),a:S(120,1)})},
  contact:{eyebrow:S(30),title:S(30,1),lead:S(100),rows:AR(1,6,{label:S(16,1),value:S(60,1),href:S(200)}),org:S(40),cta:{text:S(24,1),href:S(200,1)}}
 };
 const len=s=>Array.from(String(s)).length;
@@ -89,6 +90,8 @@ const R={
  'feat-scroll':p=>{const row=x=>`<div class="fl-r"><i></i><span>${esc(x)}</span><b>${esc(p.tag||'')}</b></div>`;const L=p.list.slice(0,10).map(row).join('');
   return `<div class="body"><div class="fl-l">${eb(p)}<div class="fl-big">${num(p.big.value)}<small>${esc(p.big.unit||'')}</small><span class="fl-cap">${rich(p.cap||'')}</span></div><h1 class="h1">${rich(p.title)}</h1>${p.lead?`<p class="lead">${rich(p.lead)}</p>`:''}<div class="fl-st">${p.items.map(m=>`<div class="fl-s"><div class="fl-v">${num(m.value)}<small>${esc(m.unit||'')}</small></div><div class="fl-t">${esc(m.label)}</div></div>`).join('')}</div>${(p.chips||[]).length?`<div class="fl-ch">${p.chips.map(c=>`<span>${esc(c)}</span>`).join('')}</div>`:''}</div><div class="fl" data-tag="${esc(p.tag||'')}" data-l="${esc(JSON.stringify(p.list))}"><div class="fl-track">${L}</div></div></div>`},
  'guard-demo':p=>{const c=p.card;return `<div class="body"><div class="gd"><div class="gd-lab">${esc(c.label)}</div><div class="gd-msg">${esc(c.msg)}</div><div class="gd-fs">${c.fields.map(f=>`<div class="gd-fr m"><span class="k">${esc(f.k)}</span><span class="v"><em class="raw">${esc(f.v)}</em><em class="msk">${esc(f.m)}</em></span></div>`).join('')}</div><div class="gd-stat"><i></i><span class="s1">${esc(c.status)}</span><span class="s2">${esc(c.done)}</span></div></div><div class="fl-l gdr">${eb(p)}<div class="fl-big">${num(p.big.value)}<small>${esc(p.big.unit||'')}</small><span class="fl-cap">${rich(p.cap||'')}</span></div><h1 class="h1">${rich(p.title)}</h1>${p.lead?`<p class="lead">${rich(p.lead)}</p>`:''}<div class="fl-st">${p.items.map(m=>`<div class="fl-s"><div class="fl-v">${num(m.value)}<small>${esc(m.unit||'')}</small></div><div class="fl-t">${esc(m.label)}</div></div>`).join('')}</div>${(p.chips||[]).length?`<div class="fl-ch">${p.chips.map(x=>`<span>${esc(x)}</span>`).join('')}</div>`:''}</div></div>`},
+ 'chat-demo':p=>{const T=x=>`<span class="tx" data-t="${esc(x)}"><span class="tv">${esc(x)}</span><span class="th"></span></span>`;
+  return `<div class="body"><div class="ch"><div class="ch-hd"><span class="ch-new">새 대화</span><span class="ch-m"><i>모델</i><b>${esc(p.rounds[0].model)}</b></span></div><div class="ch-v">${p.vendors.map((v,j)=>`<span class="${j===+p.rounds[0].vi?'on':''}">${esc(v)}</span>`).join('')}</div><div class="ch-st">${p.rounds.map((x,j)=>`<div class="cr${j?'':' on'}" data-m="${esc(x.model)}" data-vi="${esc(x.vi)}"><div class="cq show"><div class="qbub">${T(x.q)}</div></div><div class="ctools">${x.tools.map(k=>`<span class="ct done" data-pt="${esc(k.pt||'1')}"><i></i>${esc(k.t)}${k.tag?`<em>${esc(k.tag)}</em>`:''}<b>완료</b></span>`).join('')}</div><div class="ca show"><div class="qbub">${T(x.a)}</div></div></div>`).join('')}</div></div><div class="fs-text">${eb(p)}<h1 class="h1">${rich(p.title)}</h1>${p.lead?`<p class="lead">${rich(p.lead)}</p>`:''}${(p.points||[]).length?`<ul class="pts">${p.points.map(x=>`<li>${rich(x.text)}</li>`).join('')}</ul>`:''}</div></div>`},
  contact:p=>`<div class="body">${eb(p)}<h1 class="h1">${rich(p.title)}</h1>${p.lead?`<p class="lead">${rich(p.lead)}</p>`:''}<div class="crows">${p.rows.map(r=>`<div class="crow"><span>${esc(r.label)}</span><b>${r.href?`<a href="${esc(r.href)}">${esc(r.value)}</a>`:esc(r.value)}</b></div>`).join('')}</div>${p.cta?`<div><a class="cta" href="${esc(p.cta.href)}">${esc(p.cta.text)}</a></div>`:''}${p.org?`<div class="corg">${esc(p.org)}</div>`:''}${chip('ct-lg')}</div>`
 };
 const num=v=>{const s=String(v);return /^\d[\d,]*(\.\d+)?$/.test(s)?`<span class="num" data-to="${s.replace(/,/g,'')}" data-dec="${(s.split('.')[1]||'').length}" data-c="${s.includes(',')?1:0}">${esc(s)}</span>`:esc(s)};
@@ -171,7 +174,25 @@ function gdStart(t){ $$('.gd',t).forEach(g=>{
    await sl(5200);if(!ok())return;
    g.classList.add('fadeout');await sl(550) } })();
  }) }
+function chStart(t){ $$('.ch',t).forEach(ch=>{
+ ch._tok=(ch._tok||0)+1;const my=ch._tok,ok=()=>ch._tok===my&&t.isConnected&&t.classList.contains('in');
+ const rs=$$('.cr',ch),vs=$$('.ch-v span',ch),mb=$('.ch-m b',ch),pts=$$('.pts li',t);
+ const setTx=(tx,k)=>{const f=tx.dataset.t;tx.firstChild.textContent=f.slice(0,k);tx.lastChild.textContent=f.slice(k)};
+ const hl=i=>pts.forEach((x,j)=>x.classList.toggle('hl',j===i));
+ const blank=r=>{$$('.tx',r).forEach(x=>setTx(x,0));$$('.cq,.ca',r).forEach(x=>x.classList.remove('show'));$$('.ct',r).forEach(x=>{x.classList.remove('show','run','done');$('b',x).textContent='대기'})};
+ const typeTo=async(tx,ms)=>{const n=tx.dataset.t.length;for(let k=1;k<=n;k++){if(!ok())return false;setTx(tx,k);await sl(ms)}return true};
+ rs.forEach(r=>{r.classList.remove('on');blank(r)});
+ (async()=>{ await sl(500);
+  while(ok()){ for(let i=0;i<rs.length;i++){ if(!ok())return;
+   const r=rs[i];rs.forEach(x=>x.classList.remove('on'));blank(r);
+   hl(0);mb.classList.add('sw');await sl(250);mb.textContent=r.dataset.m;vs.forEach((x,j)=>x.classList.toggle('on',j===+r.dataset.vi));mb.classList.remove('sw');r.classList.add('on');await sl(700);
+   $('.cq',r).classList.add('show');if(!await typeTo($('.cq .tx',r),48))return;await sl(450);
+   for(const c of $$('.ct',r)){if(!ok())return;hl(+c.dataset.pt);c.classList.add('show','run');$('b',c).textContent='조회 중';await sl(950);c.classList.remove('run');c.classList.add('done');$('b',c).textContent='완료';await sl(150)}
+   await sl(300);$('.ca',r).classList.add('show');if(!await typeTo($('.ca .tx',r),26))return;await sl(3600);if(!ok())return;
+   r.classList.remove('on');await sl(450) } } })();
+ }) }
 function runCounts(t){ if(STATIC)return;
+ chStart(t);
  gdStart(t);
  flStart(t);
  wfStart(t);

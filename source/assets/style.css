@@ -373,3 +373,40 @@ html:not(.pres){scroll-snap-type:y proximity;scroll-padding-top:44px}
 .anim .gd-stat.scan .s1{opacity:1}
 .anim .gd-stat.scan i{animation:gdblink .8s ease-in-out infinite}
 @keyframes gdblink{50%{opacity:.25}}
+
+/* fix: non-animated qa rounds must not stack */
+.qr{opacity:0}.qr.on{opacity:1}
+/* chat-demo */
+.t-chat-demo .body{flex-direction:row-reverse;align-items:center;gap:70px;justify-content:space-between}
+.t-chat-demo .fs-text{flex:0 0 640px}
+.ch{flex:1;min-width:0;height:660px;display:flex;flex-direction:column;border-radius:24px;background:var(--surf);border:1px solid var(--line);box-shadow:rgba(0,0,0,.08) 0 12px 40px;padding:26px 32px;box-sizing:border-box}
+.ch-hd{display:flex;justify-content:space-between;align-items:center}
+.ch-new{font-size:24px;font-weight:700}
+.ch-m{display:flex;align-items:center;gap:12px;padding:7px 20px;border-radius:9999px;border:1.5px solid var(--acc);color:var(--acc);font-size:24px}
+.ch-m i{font-style:normal;font-size:19px;color:var(--mut)}
+.ch-m b{font-weight:700;transition:opacity .25s}
+.ch-m b.sw{opacity:0}
+.ch-v{display:flex;gap:10px;margin-top:16px;padding-bottom:16px;border-bottom:1px solid var(--line)}
+.ch-v span{padding:5px 18px;border-radius:9999px;border:1.5px solid var(--line);font-size:21px;font-weight:600;color:var(--mut);transition:all .3s}
+.ch-v span.on{background:var(--acc);border-color:var(--acc);color:var(--onacc)}
+.ch-st{flex:1;display:grid;padding-top:18px}
+.cr{grid-area:1/1;display:flex;flex-direction:column;gap:16px;transition:opacity .4s}
+.cq{align-self:flex-end;max-width:88%}
+.cq .qbub{background:color-mix(in srgb,var(--acc) 18%,transparent);font-weight:600;font-size:27px}
+.ca{align-self:flex-start;max-width:94%}
+.ca .qbub{background:color-mix(in srgb,var(--fg) 9%,transparent);font-size:27px}
+.ctools{display:flex;flex-wrap:wrap;gap:10px}
+.ct{display:flex;align-items:center;gap:10px;padding:7px 16px;border-radius:12px;background:color-mix(in srgb,var(--fg) 7%,transparent);font-size:22px;font-weight:600;transition:opacity .3s,background .3s}
+.ct i{width:12px;height:12px;border-radius:50%;background:var(--mut)}
+.ct em{font-style:normal;font-size:17px;padding:1px 10px;border-radius:9999px;border:1.5px solid var(--line);color:var(--mut)}
+.ct b{font-size:19px;color:var(--mut);font-weight:700;min-width:60px;text-align:right}
+.ct.run{background:color-mix(in srgb,var(--acc) 18%,transparent)}
+.ct.run i{background:var(--acc);animation:gdblink .8s ease-in-out infinite}
+.ct.run b,.ct.done b{color:var(--acc)}
+.ct.done i{background:var(--acc)}
+.anim .cq,.anim .ca{opacity:0;transform:translateY(10px);transition:opacity .35s,transform .35s}
+.anim .cq.show,.anim .ca.show{opacity:1;transform:none}
+.anim .ct:not(.show){opacity:0}
+
+.cr{opacity:0}.cr.on{opacity:1}
+.ch{height:580px}
