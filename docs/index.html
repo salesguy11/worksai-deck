@@ -464,6 +464,31 @@ html:not(.pres){scroll-snap-type:y proximity;scroll-padding-top:44px}
 .fl-r span{flex:1}
 .fl-r b{font-size:23px;font-weight:700;color:var(--acc)}
 
+/* guard-demo: PII masking motion */
+.t-guard-demo .body{flex-direction:row;align-items:center;gap:60px}
+.gdr{flex:0 0 900px}
+.gd{flex:0 0 720px;box-sizing:border-box;padding:40px 44px;border-radius:24px;background:var(--surf);border:1px solid var(--line);box-shadow:rgba(0,0,0,.08) 0 12px 40px;transition:opacity .5s}
+.gd.fadeout{opacity:0}
+.gd-lab{font-size:22px;font-weight:600;color:var(--mut)}
+.gd-msg{margin-top:20px;font-size:32px;font-weight:600;min-height:1.4em}
+.gd-fs{margin-top:22px;display:flex;flex-direction:column;gap:14px}
+.gd-fr{display:flex;gap:16px;padding-left:28px;font-size:30px;align-items:center}
+.gd-fr .k{color:var(--mut);flex:none}
+.gd-fr .v{display:grid}
+.gd-fr em{grid-area:1/1;font-style:normal;font-weight:600;letter-spacing:.02em;transition:opacity .35s}
+.gd-fr .msk{opacity:0;color:var(--acc);padding:0 10px;border-radius:8px;background:color-mix(in srgb,var(--acc) 14%,transparent)}
+.gd-fr.m .raw{opacity:0}.gd-fr.m .msk{opacity:1}
+.gd-stat{margin-top:28px;padding-top:24px;border-top:1px solid var(--line);display:grid;grid-template-columns:20px 1fr;gap:12px;align-items:center;font-size:26px;font-weight:700;color:var(--acc)}
+.gd-stat i{width:14px;height:14px;border-radius:50%;background:var(--acc)}
+.gd-stat span{grid-column:2;grid-row:1;transition:opacity .35s}
+.gd-stat .s1{opacity:0;color:var(--mut);font-weight:600}
+.anim .gd-fr{opacity:0;transition:opacity .35s}
+.anim .gd-fr.show{opacity:1}
+.anim .gd-stat .s2{opacity:0}.anim .gd-stat.done .s2{opacity:1}
+.anim .gd-stat.scan .s1{opacity:1}
+.anim .gd-stat.scan i{animation:gdblink .8s ease-in-out infinite}
+@keyframes gdblink{50%{opacity:.25}}
+
 </style></head>
 <body>
 <div id="app"></div>
@@ -687,16 +712,16 @@ END_DECK_EDIT_CONTRACT -->
       "notes": "핵심 메시지: 웍스AI는 전 직원이 쓰는 기업용 전사 AI 포털이고, 계정 수에 따른 고정비가 없다. 공통 업무를 에이전트로 만들어 전 직원에게 열어도 쓰지 않는 직원 몫의 비용이 생기지 않는다. 비교 대상은 제품명 없이 좌석 단위 구독형 AI로만 말한다. 절감률이나 금액 비교는 하지 않는다. 부가서비스(이용 기록 등)는 선택 항목이며 별도 요금이 있으니 질문이 나오면 구분해서 답한다."
     },
     {
-      "type": "metrics",
+      "type": "guard-demo",
       "eyebrow": "SECURITY",
+      "big": {
+        "value": "105",
+        "unit": "가지"
+      },
+      "cap": "모델로 보내기 전에\n검사하는 판정 항목",
       "title": "보안팀이 먼저 통과시켜요",
-      "lead": "맥락 기반 AI 슈퍼가드레일이 질문과 파일을 모델에 보내기 전에 검사하고, 회사 데이터는 학습에 쓰지 않습니다.",
+      "lead": "맥락 기반 가드레일이 질문과 파일을 먼저 검사합니다. 회사 데이터는 학습에 쓰지 않습니다.",
       "items": [
-        {
-          "value": "105",
-          "unit": "가지",
-          "label": "모델로 보내기 전 검사하는 판정 항목"
-        },
         {
           "value": "19",
           "unit": "종",
@@ -718,22 +743,61 @@ END_DECK_EDIT_CONTRACT -->
           "label": "정신건강 위험 신호 감지"
         },
         {
+          "value": "6",
+          "unit": "종",
+          "label": "보안 통제"
+        },
+        {
+          "value": "100",
+          "unit": "%",
+          "label": "개인정보 탐지 정확도"
+        },
+        {
           "value": "99.7",
           "unit": "%",
           "label": "중요정보 차단율"
         },
         {
-          "value": "0",
-          "unit": "건",
-          "label": "서버에 남기는 고객 데이터"
-        },
-        {
           "value": "100",
           "unit": "%",
           "label": "추론까지 국내 데이터센터"
+        },
+        {
+          "value": "0",
+          "unit": "건",
+          "label": "서버에 남기는 고객 데이터"
         }
       ],
-      "src": "웍스AI 제품 소개서 7쪽"
+      "chips": [
+        "맥락 기반 가드레일",
+        "GS인증 1등급",
+        "국외 전송 없는 모델 선택"
+      ],
+      "card": {
+        "label": "직원이 입력한 내용",
+        "msg": "홍길동 부장 계약서 검토 부탁해요",
+        "status": "중요한 정보를 찾는 중입니다",
+        "done": "AI에 보내기 전에 중요한 정보를 가렸습니다",
+        "fields": [
+          {
+            "k": "주민등록번호:",
+            "v": "000000-0000000",
+            "m": "●●●●●●-●●●●●●●"
+          },
+          {
+            "k": "연락처:",
+            "v": "010-0000-0000",
+            "m": "●●●-●●●●-●●●●"
+          },
+          {
+            "k": "계좌:",
+            "v": "000-000-000000",
+            "m": "●●●-●●●-●●●●●●"
+          }
+        ]
+      },
+      "src": "웍스AI 홈페이지 보안 소개(wrks.ai) 2026년 11월 기준, 입력 예시는 가상 값",
+      "notes": "왼쪽은 직원이 개인정보가 섞인 내용을 입력하면 AI 모델로 보내기 전에 가려지는 과정을 보여 주는 예시다. 입력값은 모두 가상이다. 수치는 웍스AI 홈페이지 기준이며 최신 수치는 발표 전 확인한다. 정확도 100% 같은 수치와 인증 표현은 제조사 주장이므로 질문이 나오면 근거 자료를 확인한 뒤 답한다."
     },
     {
       "type": "feat-scroll",
@@ -1307,6 +1371,7 @@ const CATALOG={
  'qa-case':{eyebrow:S(30),title:S(40),lead:S(110),image:S(40),alt:S(140),cases:AR(1,2,{tag:S(16),name:S(24,1),desc:S(110,1),depts:AR(2,6,S(10)),agent:S(24,1),rounds:AR(2,4,{dept:S(10,1),q:S(50,1),a:S(150,1)})})},
  'wf-demo':{eyebrow:S(30),title:S(30,1),lead:S(100),points:AR(0,3,{text:S(60,1)}),prompt:S(70,1),sched:S(40,1),steps:AR(3,6,{t:S(26,1),tag:S(8)}),results:AR(2,4,{t:S(30,1),d:S(16,1)})},
  'feat-scroll':{eyebrow:S(30),big:{value:S(6,1),unit:S(4)},cap:S(40),title:S(40,1),lead:S(110),items:AR(3,9,{value:S(6,1),unit:S(6),label:S(30,1)}),chips:AR(0,4,S(22)),tag:S(10),list:AR(6,40,S(22))},
+ 'guard-demo':{eyebrow:S(30),big:{value:S(6,1),unit:S(6)},cap:S(40),title:S(40,1),lead:S(130),items:AR(3,9,{value:S(8,1),unit:S(8),label:S(30,1)}),chips:AR(0,4,S(24)),card:{label:S(20,1),msg:S(40,1),status:S(40,1),done:S(40,1),fields:AR(2,4,{k:S(12,1),v:S(22,1),m:S(22,1)})}},
  contact:{eyebrow:S(30),title:S(30,1),lead:S(100),rows:AR(1,6,{label:S(16,1),value:S(60,1),href:S(200)}),org:S(40),cta:{text:S(24,1),href:S(200,1)}}
 };
 const len=s=>Array.from(String(s)).length;
@@ -1365,6 +1430,7 @@ const R={
  'wf-demo':p=>`<div class="body"><div class="wf"><div class="wf-in"><span class="wf-lab">말로 한 줄</span><div class="wf-prompt"><span class="tx" data-t="${esc(p.prompt)}"><span class="tv">${esc(p.prompt)}</span><span class="th"></span></span></div></div><div class="wf-sched on"><i>일정</i><b>${esc(p.sched)}</b></div><ol class="wf-steps">${p.steps.map((x,j)=>`<li class="show done"><span class="n">${j+1}</span><span class="t">${esc(x.t)}</span>${x.tag?`<em>${esc(x.tag)}</em>`:''}<span class="st">완료</span></li>`).join('')}</ol><div class="wf-res"><div class="wf-rh">결과물 모음 <small>검색 가능한 회사 자산으로 쌓입니다</small></div>${p.results.map(x=>`<div class="wf-r on"><span>${esc(x.t)}</span><b>${esc(x.d)}</b></div>`).join('')}</div></div><div class="fs-text">${eb(p)}<h1 class="h1">${rich(p.title)}</h1>${p.lead?`<p class="lead">${rich(p.lead)}</p>`:''}${(p.points||[]).length?`<ul class="pts">${p.points.map(x=>`<li>${rich(x.text)}</li>`).join('')}</ul>`:''}</div></div>`,
  'feat-scroll':p=>{const row=x=>`<div class="fl-r"><i></i><span>${esc(x)}</span><b>${esc(p.tag||'')}</b></div>`;const L=p.list.slice(0,10).map(row).join('');
   return `<div class="body"><div class="fl-l">${eb(p)}<div class="fl-big">${num(p.big.value)}<small>${esc(p.big.unit||'')}</small><span class="fl-cap">${rich(p.cap||'')}</span></div><h1 class="h1">${rich(p.title)}</h1>${p.lead?`<p class="lead">${rich(p.lead)}</p>`:''}<div class="fl-st">${p.items.map(m=>`<div class="fl-s"><div class="fl-v">${num(m.value)}<small>${esc(m.unit||'')}</small></div><div class="fl-t">${esc(m.label)}</div></div>`).join('')}</div>${(p.chips||[]).length?`<div class="fl-ch">${p.chips.map(c=>`<span>${esc(c)}</span>`).join('')}</div>`:''}</div><div class="fl" data-tag="${esc(p.tag||'')}" data-l="${esc(JSON.stringify(p.list))}"><div class="fl-track">${L}</div></div></div>`},
+ 'guard-demo':p=>{const c=p.card;return `<div class="body"><div class="gd"><div class="gd-lab">${esc(c.label)}</div><div class="gd-msg">${esc(c.msg)}</div><div class="gd-fs">${c.fields.map(f=>`<div class="gd-fr m"><span class="k">${esc(f.k)}</span><span class="v"><em class="raw">${esc(f.v)}</em><em class="msk">${esc(f.m)}</em></span></div>`).join('')}</div><div class="gd-stat"><i></i><span class="s1">${esc(c.status)}</span><span class="s2">${esc(c.done)}</span></div></div><div class="fl-l gdr">${eb(p)}<div class="fl-big">${num(p.big.value)}<small>${esc(p.big.unit||'')}</small><span class="fl-cap">${rich(p.cap||'')}</span></div><h1 class="h1">${rich(p.title)}</h1>${p.lead?`<p class="lead">${rich(p.lead)}</p>`:''}<div class="fl-st">${p.items.map(m=>`<div class="fl-s"><div class="fl-v">${num(m.value)}<small>${esc(m.unit||'')}</small></div><div class="fl-t">${esc(m.label)}</div></div>`).join('')}</div>${(p.chips||[]).length?`<div class="fl-ch">${p.chips.map(x=>`<span>${esc(x)}</span>`).join('')}</div>`:''}</div></div>`},
  contact:p=>`<div class="body">${eb(p)}<h1 class="h1">${rich(p.title)}</h1>${p.lead?`<p class="lead">${rich(p.lead)}</p>`:''}<div class="crows">${p.rows.map(r=>`<div class="crow"><span>${esc(r.label)}</span><b>${r.href?`<a href="${esc(r.href)}">${esc(r.value)}</a>`:esc(r.value)}</b></div>`).join('')}</div>${p.cta?`<div><a class="cta" href="${esc(p.cta.href)}">${esc(p.cta.text)}</a></div>`:''}${p.org?`<div class="corg">${esc(p.org)}</div>`:''}${chip('ct-lg')}</div>`
 };
 const num=v=>{const s=String(v);return /^\d[\d,]*(\.\d+)?$/.test(s)?`<span class="num" data-to="${s.replace(/,/g,'')}" data-dec="${(s.split('.')[1]||'').length}" data-c="${s.includes(',')?1:0}">${esc(s)}</span>`:esc(s)};
@@ -1383,7 +1449,7 @@ function buildTiles(){
   return t;
  });
 }
-const RV='.eyebrow,.h1,.lead,.badge,.mfoot,.corg,.cta,.card,.mt,.scard,.sarr,.chip,.crow,.pts li,.fs-img,.gal-card,.gal-cap,.vid-card,.vid-cap,.qshot,.qcase,.rrow,.rside,.tlk,.tlist li,.qcol,.fl,.fl-s,.fl-ch,.cv-lg,.ct-lg,.cv-eb,.cv-t,.cv-s,.cv-a,.cv-o';
+const RV='.eyebrow,.h1,.lead,.badge,.mfoot,.corg,.cta,.card,.mt,.scard,.sarr,.chip,.crow,.pts li,.fs-img,.gal-card,.gal-cap,.vid-card,.vid-cap,.qshot,.qcase,.rrow,.rside,.tlk,.tlist li,.qcol,.gd,.fl,.fl-s,.fl-ch,.cv-lg,.ct-lg,.cv-eb,.cv-t,.cv-s,.cv-a,.cv-o';
 function prepAnim(t){ if(STATIC)return; t.classList.add('anim');$$(RV,t).forEach((x,j)=>{x.classList.add('rv');x.style.setProperty('--i',j)}) }
 const sl=ms=>new Promise(r=>setTimeout(r,ms));
 function qaStart(t){ $$('.qa-chat',t).forEach((ch,ci)=>{
@@ -1431,7 +1497,24 @@ function flStart(t){ $$('.fl',t).forEach(f=>{
   while(off>=RH){off-=RH;tr.removeChild(tr.firstChild);tr.appendChild(mk(L[idx]));idx=(idx+1)%L.length}
   tr.style.transform='translateY('+(-off)+'px)';requestAnimationFrame(step)})(performance.now());
  }) }
+function gdStart(t){ $$('.gd',t).forEach(g=>{
+ g._tok=(g._tok||0)+1;const my=g._tok,ok=()=>g._tok===my&&t.isConnected&&t.classList.contains('in');
+ const msg=$('.gd-msg',g),full=msg.textContent,rows=$$('.gd-fr',g),st=$('.gd-stat',g);
+ const reset=()=>{msg.textContent='';rows.forEach(r=>r.classList.remove('show','m'));st.classList.remove('scan','done');g.classList.remove('fadeout')};
+ reset();
+ (async()=>{ await sl(500);
+  while(ok()){ reset();await sl(400);if(!ok())return;
+   for(let k=1;k<=full.length;k++){if(!ok())return;msg.textContent=full.slice(0,k);await sl(55)}
+   await sl(300);
+   for(const r of rows){if(!ok())return;r.classList.add('show');await sl(520)}
+   await sl(600);st.classList.add('scan');await sl(1300);if(!ok())return;
+   for(const r of rows){if(!ok())return;r.classList.add('m');await sl(650)}
+   await sl(400);st.classList.remove('scan');st.classList.add('done');
+   await sl(5200);if(!ok())return;
+   g.classList.add('fadeout');await sl(550) } })();
+ }) }
 function runCounts(t){ if(STATIC)return;
+ gdStart(t);
  flStart(t);
  wfStart(t);
  qaStart(t);
