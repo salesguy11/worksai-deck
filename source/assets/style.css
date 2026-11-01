@@ -240,3 +240,35 @@ html:not(.pres){scroll-snap-type:y proximity;scroll-padding-top:44px}
 .t-gallery .gal-card img{width:1240px}
 .t-gallery .gal-card{margin:40px auto 0}
 .t-gallery .gal-cap{margin:auto 0 64px;padding-top:24px}
+
+/* qa-case: sample Q&A motion */
+.t-qa-case .body{justify-content:center;gap:26px}
+.qshot{flex:none;align-self:center;padding:14px 26px;background:#f7f8fe;border-radius:18px}
+.qshot img{display:block;width:1160px;height:auto}
+.qcase{flex:none;height:404px;display:flex;background:var(--surf);border-radius:22px;overflow:hidden}
+.qleft{flex:none;width:520px;padding:34px 40px;display:flex;flex-direction:column}
+.qtag{font-size:19px;font-weight:700;letter-spacing:.08em;color:var(--acc)}
+.qleft h2{margin:8px 0 0;font-size:40px;line-height:1.2;font-weight:700;letter-spacing:-.01em}
+.qleft p{margin:14px 0 0;font-size:23px;line-height:1.5;color:var(--mut)}
+.qdep{margin-top:auto;display:flex;flex-wrap:wrap;gap:8px}
+.qdep span{padding:5px 15px;border:1.5px solid var(--line);border-radius:9999px;font-size:20px;font-weight:600;color:var(--mut)}
+.qa-chat{flex:1;margin:18px 18px 18px 0;padding:18px 26px;border-radius:16px;background:color-mix(in srgb,var(--fg) 5%,transparent);display:flex;flex-direction:column;min-width:0}
+.qtabs{display:flex;align-items:center;gap:10px;padding-bottom:14px;border-bottom:1px solid var(--line)}
+.qtabs i{font-style:normal;font-size:19px;color:var(--mut);margin-right:6px}
+.qtabs span{padding:5px 18px;border-radius:9999px;font-size:21px;font-weight:600;color:var(--mut);border:1.5px solid var(--line);transition:all .3s}
+.qtabs span.on{background:var(--acc);border-color:var(--acc);color:var(--onacc)}
+.qstage{flex:1;display:grid;padding-top:16px}
+.qr{grid-area:1/1;display:flex;flex-direction:column;gap:14px}
+.qwho{display:block;font-size:18px;font-weight:600;color:var(--mut);margin-bottom:5px}
+.qask{align-self:flex-end;max-width:84%;text-align:right}
+.qans{align-self:flex-start;max-width:92%}
+.qbub{position:relative;padding:12px 22px;border-radius:18px;font-size:25px;line-height:1.45;white-space:pre-line;text-align:left}
+.qask .qbub{background:color-mix(in srgb,var(--acc) 18%,transparent);font-weight:600}
+.qans .qbub{background:color-mix(in srgb,var(--fg) 9%,transparent)}
+.th{visibility:hidden}
+.qbub.think::after{content:'\25CF  \25CF  \25CF';position:absolute;left:22px;top:12px;color:var(--mut);animation:qblink 1s ease-in-out infinite}
+@keyframes qblink{50%{opacity:.25}}
+.anim .qr{opacity:0;transition:opacity .35s}
+.anim .qr.on{opacity:1}
+.anim .qask,.anim .qans{opacity:0;transform:translateY(10px);transition:opacity .35s,transform .35s}
+.anim .qask.show,.anim .qans.show{opacity:1;transform:none}

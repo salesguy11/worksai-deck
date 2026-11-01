@@ -26,6 +26,7 @@ const CATALOG={
  quotes:{eyebrow:S(30),title:S(40,1),columns:AR(1,2,{org:S(40,1),role:S(40),sum:S(60),qa:AR(1,3,{q:S(60,1),a:S(230,1)})})},
  gallery:{eyebrow:S(30),title:S(40,1),lead:S(110),image:S(40,1),alt:S(140,1),caption:S(80)},
  video:{eyebrow:S(30),title:S(40,1),lead:S(110),file:S(80,1),poster:S(40),caption:S(80)},
+ 'qa-case':{image:S(40),alt:S(140),cases:AR(1,2,{tag:S(16),name:S(24,1),desc:S(110,1),depts:AR(2,6,S(10)),agent:S(24,1),rounds:AR(2,4,{dept:S(10,1),q:S(50,1),a:S(150,1)})})},
  contact:{eyebrow:S(30),title:S(30,1),lead:S(100),rows:AR(1,6,{label:S(16,1),value:S(60,1),href:S(200)}),org:S(40),cta:{text:S(24,1),href:S(200,1)}}
 };
 const len=s=>Array.from(String(s)).length;
@@ -79,6 +80,8 @@ const R={
  quotes:p=>`<div class="body">${head(p)}<div class="qcols" style="--n:${p.columns.length}">${p.columns.map(c=>`<div class="qcol"><div class="qorg"><b>${esc(c.org)}</b>${c.role?`<span>${esc(c.role)}</span>`:''}</div>${c.sum?`<div class="qsum">${esc(c.sum)}</div>`:''}${c.qa.map(x=>`<div class="qa"><div class="qq">Q. ${esc(x.q)}</div><p>“${rich(x.a)}”</p></div>`).join('')}</div>`).join('')}</div></div>`,
  gallery:p=>`<div class="body">${head(p)}<div class="gal-card"><img src="${ASSETS[p.image]||''}" alt="${esc(p.alt)}"></div>${p.caption?`<div class="gal-cap">${esc(p.caption).replace(/\[([^\]]+)\]/g,'<em>$1</em>')}</div>`:''}</div>`,
  video:p=>`<div class="body">${head(p)}<div class="vid-card"><video controls preload="metadata" playsinline${p.poster&&ASSETS[p.poster]?` poster="${ASSETS[p.poster]}"`:''} src="${esc(p.file)}">영상을 재생할 수 없는 환경입니다.</video></div>${p.caption?`<div class="vid-cap">${esc(p.caption)}</div>`:''}</div>`,
+ 'qa-case':p=>{const T=(x)=>`<span class="tx" data-t="${esc(x)}"><span class="tv">${esc(x)}</span><span class="th"></span></span>`;
+  return `<div class="body">${p.image?`<div class="qshot"><img src="${ASSETS[p.image]||''}" alt="${esc(p.alt||'')}"></div>`:''}${p.cases.map(c=>`<div class="qcase"><div class="qleft"><div class="qtag">${esc(c.tag||'')}</div><h2>${esc(c.name)}</h2><p>${rich(c.desc)}</p><div class="qdep">${c.depts.map(d=>`<span>${esc(d)}</span>`).join('')}</div></div><div class="qa-chat"><div class="qtabs"><i>질문하는 부서</i>${c.rounds.map((x,j)=>`<span class="${j?'':'on'}">${esc(x.dept)}</span>`).join('')}</div><div class="qstage">${c.rounds.map((x,j)=>`<div class="qr${j?'':' on'}"><div class="qask show"><span class="qwho">${esc(x.dept)} 질문</span><div class="qbub">${T(x.q)}</div></div><div class="qans show"><span class="qwho">${esc(c.agent)}</span><div class="qbub">${T(x.a)}</div></div></div>`).join('')}</div></div></div>`).join('')}</div>`},
  contact:p=>`<div class="body">${eb(p)}<h1 class="h1">${rich(p.title)}</h1>${p.lead?`<p class="lead">${rich(p.lead)}</p>`:''}<div class="crows">${p.rows.map(r=>`<div class="crow"><span>${esc(r.label)}</span><b>${r.href?`<a href="${esc(r.href)}">${esc(r.value)}</a>`:esc(r.value)}</b></div>`).join('')}</div>${p.cta?`<div><a class="cta" href="${esc(p.cta.href)}">${esc(p.cta.text)}</a></div>`:''}${p.org?`<div class="corg">${esc(p.org)}</div>`:''}${chip('ct-lg')}</div>`
 };
 const num=v=>{const s=String(v);return /^\d[\d,]*(\.\d+)?$/.test(s)?`<span class="num" data-to="${s.replace(/,/g,'')}" data-dec="${(s.split('.')[1]||'').length}" data-c="${s.includes(',')?1:0}">${esc(s)}</span>`:esc(s)};
@@ -97,9 +100,28 @@ function buildTiles(){
   return t;
  });
 }
-const RV='.eyebrow,.h1,.lead,.badge,.mfoot,.corg,.cta,.card,.mt,.scard,.sarr,.chip,.crow,.pts li,.fs-img,.gal-card,.gal-cap,.vid-card,.vid-cap,.rrow,.rside,.tlk,.tlist li,.qcol,.cv-lg,.ct-lg,.cv-eb,.cv-t,.cv-s,.cv-a,.cv-o';
+const RV='.eyebrow,.h1,.lead,.badge,.mfoot,.corg,.cta,.card,.mt,.scard,.sarr,.chip,.crow,.pts li,.fs-img,.gal-card,.gal-cap,.vid-card,.vid-cap,.qshot,.qcase,.rrow,.rside,.tlk,.tlist li,.qcol,.cv-lg,.ct-lg,.cv-eb,.cv-t,.cv-s,.cv-a,.cv-o';
 function prepAnim(t){ if(STATIC)return; t.classList.add('anim');$$(RV,t).forEach((x,j)=>{x.classList.add('rv');x.style.setProperty('--i',j)}) }
+const sl=ms=>new Promise(r=>setTimeout(r,ms));
+function qaStart(t){ $$('.qa-chat',t).forEach((ch,ci)=>{
+ ch._tok=(ch._tok||0)+1;const my=ch._tok,ok=()=>ch._tok===my&&t.isConnected&&t.classList.contains('in');
+ const rs=$$('.qr',ch),tabs=$$('.qtabs span',ch);
+ const setTx=(tx,k)=>{const f=tx.dataset.t;tx.firstChild.textContent=f.slice(0,k);tx.lastChild.textContent=f.slice(k)};
+ const blank=r=>{$$('.tx',r).forEach(x=>setTx(x,0));$$('.qask,.qans',r).forEach(x=>x.classList.remove('show'));$$('.qbub',r).forEach(x=>x.classList.remove('think'))};
+ const typeTo=async(tx,ms)=>{const n=tx.dataset.t.length;for(let k=1;k<=n;k++){if(!ok())return false;setTx(tx,k);await sl(ms)}return true};
+ rs.forEach(r=>{r.classList.remove('on');blank(r)});
+ (async()=>{ await sl(500+ci*2800);
+  while(ok()){ for(let i=0;i<rs.length;i++){ if(!ok())return;
+   const r=rs[i];rs.forEach(x=>x.classList.remove('on'));blank(r);tabs.forEach((x,j)=>x.classList.toggle('on',j===i));r.classList.add('on');
+   await sl(350);if(!ok())return;
+   const ask=$('.qask',r),ans=$('.qans',r),ab=$('.qbub',ans);
+   ask.classList.add('show');if(!await typeTo($('.tx',ask),42))return;await sl(550);
+   ans.classList.add('show');ab.classList.add('think');await sl(1000);if(!ok())return;ab.classList.remove('think');
+   if(!await typeTo($('.tx',ans),20))return;await sl(4200);if(!ok())return;
+   r.classList.remove('on');await sl(450) } } })();
+ }) }
 function runCounts(t){ if(STATIC)return;
+ qaStart(t);
  $$('.num',t).forEach(el=>{ if(el.dataset.done)return;el.dataset.done=1;
   const to=+el.dataset.to,dec=+el.dataset.dec,cm=el.dataset.c==='1',fin=el.textContent;
   const f=n=>{let s=n.toFixed(dec);if(cm){const q=s.split('.');s=(+q[0]).toLocaleString('en-US')+(q[1]?'.'+q[1]:'')}return s};
@@ -177,7 +199,7 @@ function exitPres(){
 }
 function pingCtl(){const c=$('#pctl');c.classList.add('show');clearTimeout(hideT);hideT=setTimeout(()=>c.classList.remove('show'),2600)}
 function openOv(){
- const ov=$('#ov');ov.innerHTML=`<h2>${esc(META.title)}</h2><div class="ovg">${PAGES.map((p,i)=>`<button class="ovc" data-i="${i}"><em>${i+1}</em>${esc(p.title||p.eyebrow||p.type).replace(/\{|\}/g,'')}</button>`).join('')}</div>`;
+ const ov=$('#ov');ov.innerHTML=`<h2>${esc(META.title)}</h2><div class="ovg">${PAGES.map((p,i)=>`<button class="ovc" data-i="${i}"><em>${i+1}</em>${esc(p.title||p.eyebrow||(p.cases&&p.cases[0].name)||p.type).replace(/\{|\}/g,'')}</button>`).join('')}</div>`;
  ov.classList.add('on');$$('.ovc',ov).forEach(b=>b.onclick=()=>{ov.classList.remove('on');showPres(+b.dataset.i)});
 }
 

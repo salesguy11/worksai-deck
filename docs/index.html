@@ -356,6 +356,38 @@ html:not(.pres){scroll-snap-type:y proximity;scroll-padding-top:44px}
 .t-gallery .gal-card{margin:40px auto 0}
 .t-gallery .gal-cap{margin:auto 0 64px;padding-top:24px}
 
+/* qa-case: sample Q&A motion */
+.t-qa-case .body{justify-content:center;gap:26px}
+.qshot{flex:none;align-self:center;padding:14px 26px;background:#f7f8fe;border-radius:18px}
+.qshot img{display:block;width:1160px;height:auto}
+.qcase{flex:none;height:404px;display:flex;background:var(--surf);border-radius:22px;overflow:hidden}
+.qleft{flex:none;width:520px;padding:34px 40px;display:flex;flex-direction:column}
+.qtag{font-size:19px;font-weight:700;letter-spacing:.08em;color:var(--acc)}
+.qleft h2{margin:8px 0 0;font-size:40px;line-height:1.2;font-weight:700;letter-spacing:-.01em}
+.qleft p{margin:14px 0 0;font-size:23px;line-height:1.5;color:var(--mut)}
+.qdep{margin-top:auto;display:flex;flex-wrap:wrap;gap:8px}
+.qdep span{padding:5px 15px;border:1.5px solid var(--line);border-radius:9999px;font-size:20px;font-weight:600;color:var(--mut)}
+.qa-chat{flex:1;margin:18px 18px 18px 0;padding:18px 26px;border-radius:16px;background:color-mix(in srgb,var(--fg) 5%,transparent);display:flex;flex-direction:column;min-width:0}
+.qtabs{display:flex;align-items:center;gap:10px;padding-bottom:14px;border-bottom:1px solid var(--line)}
+.qtabs i{font-style:normal;font-size:19px;color:var(--mut);margin-right:6px}
+.qtabs span{padding:5px 18px;border-radius:9999px;font-size:21px;font-weight:600;color:var(--mut);border:1.5px solid var(--line);transition:all .3s}
+.qtabs span.on{background:var(--acc);border-color:var(--acc);color:var(--onacc)}
+.qstage{flex:1;display:grid;padding-top:16px}
+.qr{grid-area:1/1;display:flex;flex-direction:column;gap:14px}
+.qwho{display:block;font-size:18px;font-weight:600;color:var(--mut);margin-bottom:5px}
+.qask{align-self:flex-end;max-width:84%;text-align:right}
+.qans{align-self:flex-start;max-width:92%}
+.qbub{position:relative;padding:12px 22px;border-radius:18px;font-size:25px;line-height:1.45;white-space:pre-line;text-align:left}
+.qask .qbub{background:color-mix(in srgb,var(--acc) 18%,transparent);font-weight:600}
+.qans .qbub{background:color-mix(in srgb,var(--fg) 9%,transparent)}
+.th{visibility:hidden}
+.qbub.think::after{content:'\25CF  \25CF  \25CF';position:absolute;left:22px;top:12px;color:var(--mut);animation:qblink 1s ease-in-out infinite}
+@keyframes qblink{50%{opacity:.25}}
+.anim .qr{opacity:0;transition:opacity .35s}
+.anim .qr.on{opacity:1}
+.anim .qask,.anim .qans{opacity:0;transform:translateY(10px);transition:opacity .35s,transform .35s}
+.anim .qask.show,.anim .qans.show{opacity:1;transform:none}
+
 </style></head>
 <body>
 <div id="app"></div>
@@ -715,55 +747,123 @@ END_DECK_EDIT_CONTRACT -->
       "alt": "웍스AI 에이전트 홈 화면 캡처"
     },
     {
-      "type": "gallery",
-      "eyebrow": "COMMON WORK AUTOMATION",
-      "title": "여러 부서가 함께 쓰는 업무를\n에이전트로 자동화합니다",
-      "lead": "기업용 전사 AI 포털 웍스AI에서는 부서를 넘나드는 공통 업무를 에이전트로 만들어 전 직원에게 엽니다.",
+      "type": "qa-case",
       "image": "agents5",
       "alt": "웍스AI 에이전트 목록 화면: 사고·안전 보고, 신규 입사 온보딩, 구매·발주 요청, 불량 대응, 사내 규정 안내 비서 5종",
-      "caption": "화면은 [시연용 샘플 5개]입니다. 실제 기업에서는 업무마다 더 많이 만들어 씁니다",
-      "src": "가상 제조기업 문서로 만든 시연 화면 (고객 실적 아님)",
-      "notes": "5종은 예시일 뿐이다. 핵심은 여러 부서가 함께 쓰는 공통 업무를 에이전트로 자동화해 전 직원에게 여는 방식이다. 실제 기업에서는 업무별로 훨씬 많은 에이전트를 만들어 쓴다. 가상 제조기업 문서로 만든 시연 화면이며 실제 고객 사례가 아니다(화면에 가상 회사명 표기). 모든 에이전트는 첨부한 사내 문서만 근거로 답하고 문서에 없으면 담당 부서를 안내한다."
+      "src": "가상 제조기업 문서로 만든 시연 화면과 예시 대화 (고객 실적 아님, 답변 내용은 예시)",
+      "notes": "위 화면은 가상 제조기업 문서로 만든 시연 에이전트 5개다. 아래는 사내 규정 안내 비서에 여러 부서가 차례로 질문하는 예시 대화다. 부서마다 같은 에이전트 하나로 답을 받는다. 답변 내용은 예시이며 실제 답변은 고객이 올린 규정집을 근거로 한다. 문서에 없는 내용은 추측하지 않고 담당 부서를 안내한다.",
+      "cases": [
+        {
+          "tag": "SAMPLE 01",
+          "name": "사내 규정 관리",
+          "desc": "인사·총무·재무·보안 규정을 한 곳에 올리면, 전 직원이 부서 담당자를 거치지 않고 규정집 기준으로 바로 답을 받습니다.",
+          "depts": [
+            "인사",
+            "총무",
+            "재무",
+            "정보보안"
+          ],
+          "agent": "사내 규정 안내 비서",
+          "rounds": [
+            {
+              "dept": "영업팀",
+              "q": "해외 출장 일비와 승인 절차를 알려줘",
+              "a": "출장비 규정 기준으로 정리했습니다. 일비는 지역 구분별 기준에 따르고, 출장 전 팀장 승인 후 총무팀에 접수합니다.\n근거: 출장비 지급 규정 | 문의: 총무팀"
+            },
+            {
+              "dept": "생산팀",
+              "q": "야간 근무 다음 날 휴무는 어떻게 신청하나요?",
+              "a": "근무시간 규정에 따라 대체 휴무로 신청합니다. 사용 기한과 승인선은 규정 표를 따르며 인사 시스템에서 올립니다.\n근거: 근태 관리 규정 | 문의: 인사팀"
+            },
+            {
+              "dept": "연구개발팀",
+              "q": "외부 USB를 사무실에 가져와도 되나요?",
+              "a": "정보보안 규정상 사전 승인 대상입니다. 정보보안팀에 반입 신청 후 승인받아야 하며, 문서에 정해진 예외는 없습니다.\n근거: 정보보안 규정 | 문의: 정보보안팀"
+            },
+            {
+              "dept": "구매팀",
+              "q": "법인카드 사용 후 증빙은 언제까지 내나요?",
+              "a": "경비 처리 규정의 제출 기한을 따릅니다. 기한을 넘기면 사유서가 필요하며 재무팀 확인 후 처리됩니다.\n근거: 경비 처리 규정 | 문의: 재무팀"
+            }
+          ]
+        }
+      ]
     },
     {
-      "type": "rows",
-      "eyebrow": "COMMON WORK AUTOMATION",
-      "title": "공통 업무 하나가 여러 부서를 잇습니다",
-      "lead": "샘플 5개로 보는 방식입니다. 같은 방법으로 업무마다 에이전트를 늘려 가면 됩니다.",
-      "rows": [
+      "type": "qa-case",
+      "src": "가상 제조기업 문서로 만든 시연 에이전트의 예시 대화 (고객 실적 아님, 답변 내용은 예시)",
+      "notes": "불량 대응과 사고·안전 보고 두 사례다. 사내 규정 관리와 같은 방식으로, 여러 부서가 한 에이전트에 이어서 질문하고 답을 받는다. 답변 내용은 예시이며 실제 답변은 고객이 올린 절차서를 근거로 한다. 사고 보고의 법령 확인은 국가법령정보 조회를 쓰고, 조회에 실패하면 지어내지 않고 담당 부서를 안내한다.",
+      "cases": [
         {
-          "label": "사내 규정 문의",
-          "value": "인사·재무·보안 규정을 한 번에 답하고 담당 부서까지 안내\n{질문 예시  \"해외 출장 일비와 승인 절차를 알려줘\"}"
+          "tag": "SAMPLE 02",
+          "name": "불량 대응",
+          "desc": "품질·생산·구매·영업이 따로 움직이던 불량 대응을 한 흐름으로 묶습니다. 부서별 할 일과 시한, 8D·통보문·회신문 초안까지 안내합니다.",
+          "depts": [
+            "품질",
+            "생산",
+            "구매",
+            "영업",
+            "재무"
+          ],
+          "agent": "불량 대응 비서",
+          "rounds": [
+            {
+              "dept": "생산팀",
+              "q": "2공장 A라인에서 도금 불량이 나왔어요",
+              "a": "먼저 확인이 필요합니다. 발생 수량, 로트 번호, 고객 출하 여부를 알려주세요. 정보가 오면 예상 등급을 판단합니다."
+            },
+            {
+              "dept": "품질팀",
+              "q": "출하 전에 발견했고 한 로트입니다",
+              "a": "예상 등급과 근거를 안내합니다. 원인은 확정하지 않고 가설로 표시하며, 부서별 할 일과 시한은 표로 정리하고 8D 초안을 이어서 씁니다."
+            },
+            {
+              "dept": "구매팀",
+              "q": "협력사에 통보문을 보내야 해요",
+              "a": "협력사는 등록된 문서 목록에서만 골라 통보문 초안을 만듭니다. 목록에 없는 업체는 지어내지 않고 구매 담당 부서를 안내합니다."
+            },
+            {
+              "dept": "영업팀",
+              "q": "고객에게는 뭐라고 알리죠?",
+              "a": "고객 회신문 초안을 씁니다. 원인이 확정되기 전에는 가설이라고 밝히고, 확인된 조치와 시한만 적습니다."
+            }
+          ]
         },
         {
-          "label": "불량 대응",
-          "value": "품질 판단, 생산 조치, 구매 통보, 영업 회신까지 한 흐름\n{질문 예시  \"2공장 도금 불량, 부서별로 언제까지 뭘 하죠?\"}"
-        },
-        {
-          "label": "구매·발주 요청",
-          "value": "현업 질문에 구매·재무 결재선과 법무 서류까지 안내\n{질문 예시  \"라인이 멈췄어요. 긴급 구매는 어떻게 하죠?\"}"
-        },
-        {
-          "label": "신규 입사 준비",
-          "value": "인사·총무·IT·안전보건 준비를 입사일 기준 날짜로\n{질문 예시  \"다음 주 월요일 입사자, 부서별 준비사항은?\"}"
-        },
-        {
-          "label": "사고·안전 보고",
-          "value": "안전보건·생산·인사·법무 보고 시한을 한 번에 안내\n{질문 예시  \"프레스 협착 사고, 누구에게 언제까지 알리죠?\"}"
+          "tag": "SAMPLE 03",
+          "name": "사고·안전 보고",
+          "desc": "사고 등급과 즉시 조치, 보고 대상과 시한은 사내 절차로, 법령상 의무는 법령 조회로 나눠 안내합니다.",
+          "depts": [
+            "안전보건",
+            "생산",
+            "인사",
+            "법무"
+          ],
+          "agent": "사고·안전 보고 비서",
+          "rounds": [
+            {
+              "dept": "생산팀",
+              "q": "프레스 협착 사고가 났습니다",
+              "a": "부상자가 있으면 먼저 119에 신고하세요. 이어서 사고 등급과 즉시 조치, 사내 보고 순서를 안내합니다."
+            },
+            {
+              "dept": "안전보건팀",
+              "q": "누구에게 언제까지 보고해야 하나요?",
+              "a": "사내 절차의 보고 대상과 시한을 표로 정리합니다. 법령상 의무는 사내 절차와 분리해서 따로 안내합니다."
+            },
+            {
+              "dept": "법무팀",
+              "q": "법에 따른 보고 의무도 있나요?",
+              "a": "국가법령정보를 조회해 근거와 함께 확인합니다. 조회가 실패하면 지어내지 않고 법무팀 확인이 필요하다고 안내합니다."
+            },
+            {
+              "dept": "인사팀",
+              "q": "피해 직원 후속 절차는 어떻게 되죠?",
+              "a": "사고 보고 절차서에 있는 범위에서만 안내합니다. 문서에 없는 내용은 추측하지 않고 담당 부서를 알려드립니다."
+            }
+          ]
         }
-      ],
-      "side": {
-        "value": "12",
-        "unit": "개 부서",
-        "caption": "샘플 5개만으로 이어진 부서",
-        "notes": [
-          "규정집·절차서를 올리면 시작",
-          "IT·총무·법무 등 업무마다 추가",
-          "계정 수에 따른 월 고정비 없음"
-        ]
-      },
-      "src": "가상 제조기업 문서로 만든 시연 (고객 실적 아님)",
-      "notes": "5개는 예시이고 강조점은 개수가 아니라 방식이다. 규정집과 절차서를 올려 에이전트를 만들고 전 직원에게 배포한다. 업무마다 에이전트를 더 만들어 갈 수 있다. 연결 부서 12곳은 샘플 5개에서 중복을 뺀 수(인사, 총무, 재무, 정보보안, 품질, 생산, 구매, 영업, 현업, 법무, IT, 안전보건). 우측의 IT·총무·법무 확장은 제안 예시이며 구축된 것이 아니다(추측입니다). 고정비 없음은 계정 수에 따른 고정비 없음이며 이용 기록 등 부가서비스는 별도 요금. 절감률·금액 비교는 하지 않는다."
+      ]
     },
     {
       "type": "feature-shot",
@@ -1027,6 +1127,7 @@ const CATALOG={
  quotes:{eyebrow:S(30),title:S(40,1),columns:AR(1,2,{org:S(40,1),role:S(40),sum:S(60),qa:AR(1,3,{q:S(60,1),a:S(230,1)})})},
  gallery:{eyebrow:S(30),title:S(40,1),lead:S(110),image:S(40,1),alt:S(140,1),caption:S(80)},
  video:{eyebrow:S(30),title:S(40,1),lead:S(110),file:S(80,1),poster:S(40),caption:S(80)},
+ 'qa-case':{image:S(40),alt:S(140),cases:AR(1,2,{tag:S(16),name:S(24,1),desc:S(110,1),depts:AR(2,6,S(10)),agent:S(24,1),rounds:AR(2,4,{dept:S(10,1),q:S(50,1),a:S(150,1)})})},
  contact:{eyebrow:S(30),title:S(30,1),lead:S(100),rows:AR(1,6,{label:S(16,1),value:S(60,1),href:S(200)}),org:S(40),cta:{text:S(24,1),href:S(200,1)}}
 };
 const len=s=>Array.from(String(s)).length;
@@ -1080,6 +1181,8 @@ const R={
  quotes:p=>`<div class="body">${head(p)}<div class="qcols" style="--n:${p.columns.length}">${p.columns.map(c=>`<div class="qcol"><div class="qorg"><b>${esc(c.org)}</b>${c.role?`<span>${esc(c.role)}</span>`:''}</div>${c.sum?`<div class="qsum">${esc(c.sum)}</div>`:''}${c.qa.map(x=>`<div class="qa"><div class="qq">Q. ${esc(x.q)}</div><p>“${rich(x.a)}”</p></div>`).join('')}</div>`).join('')}</div></div>`,
  gallery:p=>`<div class="body">${head(p)}<div class="gal-card"><img src="${ASSETS[p.image]||''}" alt="${esc(p.alt)}"></div>${p.caption?`<div class="gal-cap">${esc(p.caption).replace(/\[([^\]]+)\]/g,'<em>$1</em>')}</div>`:''}</div>`,
  video:p=>`<div class="body">${head(p)}<div class="vid-card"><video controls preload="metadata" playsinline${p.poster&&ASSETS[p.poster]?` poster="${ASSETS[p.poster]}"`:''} src="${esc(p.file)}">영상을 재생할 수 없는 환경입니다.</video></div>${p.caption?`<div class="vid-cap">${esc(p.caption)}</div>`:''}</div>`,
+ 'qa-case':p=>{const T=(x)=>`<span class="tx" data-t="${esc(x)}"><span class="tv">${esc(x)}</span><span class="th"></span></span>`;
+  return `<div class="body">${p.image?`<div class="qshot"><img src="${ASSETS[p.image]||''}" alt="${esc(p.alt||'')}"></div>`:''}${p.cases.map(c=>`<div class="qcase"><div class="qleft"><div class="qtag">${esc(c.tag||'')}</div><h2>${esc(c.name)}</h2><p>${rich(c.desc)}</p><div class="qdep">${c.depts.map(d=>`<span>${esc(d)}</span>`).join('')}</div></div><div class="qa-chat"><div class="qtabs"><i>질문하는 부서</i>${c.rounds.map((x,j)=>`<span class="${j?'':'on'}">${esc(x.dept)}</span>`).join('')}</div><div class="qstage">${c.rounds.map((x,j)=>`<div class="qr${j?'':' on'}"><div class="qask show"><span class="qwho">${esc(x.dept)} 질문</span><div class="qbub">${T(x.q)}</div></div><div class="qans show"><span class="qwho">${esc(c.agent)}</span><div class="qbub">${T(x.a)}</div></div></div>`).join('')}</div></div></div>`).join('')}</div>`},
  contact:p=>`<div class="body">${eb(p)}<h1 class="h1">${rich(p.title)}</h1>${p.lead?`<p class="lead">${rich(p.lead)}</p>`:''}<div class="crows">${p.rows.map(r=>`<div class="crow"><span>${esc(r.label)}</span><b>${r.href?`<a href="${esc(r.href)}">${esc(r.value)}</a>`:esc(r.value)}</b></div>`).join('')}</div>${p.cta?`<div><a class="cta" href="${esc(p.cta.href)}">${esc(p.cta.text)}</a></div>`:''}${p.org?`<div class="corg">${esc(p.org)}</div>`:''}${chip('ct-lg')}</div>`
 };
 const num=v=>{const s=String(v);return /^\d[\d,]*(\.\d+)?$/.test(s)?`<span class="num" data-to="${s.replace(/,/g,'')}" data-dec="${(s.split('.')[1]||'').length}" data-c="${s.includes(',')?1:0}">${esc(s)}</span>`:esc(s)};
@@ -1098,9 +1201,28 @@ function buildTiles(){
   return t;
  });
 }
-const RV='.eyebrow,.h1,.lead,.badge,.mfoot,.corg,.cta,.card,.mt,.scard,.sarr,.chip,.crow,.pts li,.fs-img,.gal-card,.gal-cap,.vid-card,.vid-cap,.rrow,.rside,.tlk,.tlist li,.qcol,.cv-lg,.ct-lg,.cv-eb,.cv-t,.cv-s,.cv-a,.cv-o';
+const RV='.eyebrow,.h1,.lead,.badge,.mfoot,.corg,.cta,.card,.mt,.scard,.sarr,.chip,.crow,.pts li,.fs-img,.gal-card,.gal-cap,.vid-card,.vid-cap,.qshot,.qcase,.rrow,.rside,.tlk,.tlist li,.qcol,.cv-lg,.ct-lg,.cv-eb,.cv-t,.cv-s,.cv-a,.cv-o';
 function prepAnim(t){ if(STATIC)return; t.classList.add('anim');$$(RV,t).forEach((x,j)=>{x.classList.add('rv');x.style.setProperty('--i',j)}) }
+const sl=ms=>new Promise(r=>setTimeout(r,ms));
+function qaStart(t){ $$('.qa-chat',t).forEach((ch,ci)=>{
+ ch._tok=(ch._tok||0)+1;const my=ch._tok,ok=()=>ch._tok===my&&t.isConnected&&t.classList.contains('in');
+ const rs=$$('.qr',ch),tabs=$$('.qtabs span',ch);
+ const setTx=(tx,k)=>{const f=tx.dataset.t;tx.firstChild.textContent=f.slice(0,k);tx.lastChild.textContent=f.slice(k)};
+ const blank=r=>{$$('.tx',r).forEach(x=>setTx(x,0));$$('.qask,.qans',r).forEach(x=>x.classList.remove('show'));$$('.qbub',r).forEach(x=>x.classList.remove('think'))};
+ const typeTo=async(tx,ms)=>{const n=tx.dataset.t.length;for(let k=1;k<=n;k++){if(!ok())return false;setTx(tx,k);await sl(ms)}return true};
+ rs.forEach(r=>{r.classList.remove('on');blank(r)});
+ (async()=>{ await sl(500+ci*2800);
+  while(ok()){ for(let i=0;i<rs.length;i++){ if(!ok())return;
+   const r=rs[i];rs.forEach(x=>x.classList.remove('on'));blank(r);tabs.forEach((x,j)=>x.classList.toggle('on',j===i));r.classList.add('on');
+   await sl(350);if(!ok())return;
+   const ask=$('.qask',r),ans=$('.qans',r),ab=$('.qbub',ans);
+   ask.classList.add('show');if(!await typeTo($('.tx',ask),42))return;await sl(550);
+   ans.classList.add('show');ab.classList.add('think');await sl(1000);if(!ok())return;ab.classList.remove('think');
+   if(!await typeTo($('.tx',ans),20))return;await sl(4200);if(!ok())return;
+   r.classList.remove('on');await sl(450) } } })();
+ }) }
 function runCounts(t){ if(STATIC)return;
+ qaStart(t);
  $$('.num',t).forEach(el=>{ if(el.dataset.done)return;el.dataset.done=1;
   const to=+el.dataset.to,dec=+el.dataset.dec,cm=el.dataset.c==='1',fin=el.textContent;
   const f=n=>{let s=n.toFixed(dec);if(cm){const q=s.split('.');s=(+q[0]).toLocaleString('en-US')+(q[1]?'.'+q[1]:'')}return s};
@@ -1178,7 +1300,7 @@ function exitPres(){
 }
 function pingCtl(){const c=$('#pctl');c.classList.add('show');clearTimeout(hideT);hideT=setTimeout(()=>c.classList.remove('show'),2600)}
 function openOv(){
- const ov=$('#ov');ov.innerHTML=`<h2>${esc(META.title)}</h2><div class="ovg">${PAGES.map((p,i)=>`<button class="ovc" data-i="${i}"><em>${i+1}</em>${esc(p.title||p.eyebrow||p.type).replace(/\{|\}/g,'')}</button>`).join('')}</div>`;
+ const ov=$('#ov');ov.innerHTML=`<h2>${esc(META.title)}</h2><div class="ovg">${PAGES.map((p,i)=>`<button class="ovc" data-i="${i}"><em>${i+1}</em>${esc(p.title||p.eyebrow||(p.cases&&p.cases[0].name)||p.type).replace(/\{|\}/g,'')}</button>`).join('')}</div>`;
  ov.classList.add('on');$$('.ovc',ov).forEach(b=>b.onclick=()=>{ov.classList.remove('on');showPres(+b.dataset.i)});
 }
 
