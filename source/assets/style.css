@@ -294,3 +294,6 @@ html:not(.pres){scroll-snap-type:y proximity;scroll-padding-top:44px}
 .q2 .qstage{padding-top:10px}.q2 .qr{gap:8px}
 .q2 .qwho{font-size:20px;margin-bottom:3px}
 .q2 .qbub{font-size:28px;line-height:1.38;padding:9px 20px}
+
+.t-qa-case .body.q1.nohd{justify-content:center}
+.nohd.q1 .qcase{flex:none;height:620px}
