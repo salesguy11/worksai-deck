@@ -272,3 +272,25 @@ html:not(.pres){scroll-snap-type:y proximity;scroll-padding-top:44px}
 .anim .qr.on{opacity:1}
 .anim .qask,.anim .qans{opacity:0;transform:translateY(10px);transition:opacity .35s,transform .35s}
 .anim .qask.show,.anim .qans.show{opacity:1;transform:none}
+
+/* qa-case size tuning: 1 case under header = large, 2 cases = compact-large */
+.t-qa-case .body.q1{justify-content:flex-start;gap:0}
+.t-qa-case .body.q1 .hd{margin-bottom:28px}
+.q1 .qcase{flex:1;height:auto}
+.q1 .qleft{width:560px;padding:44px 48px}
+.q1 .qtag{font-size:22px}.q1 .qleft h2{font-size:52px;margin-top:10px}.q1 .qleft p{font-size:29px;margin-top:20px}
+.q1 .qdep span{font-size:24px;padding:6px 18px}
+.q1 .qa-chat{margin:22px 22px 22px 0;padding:24px 32px}
+.q1 .qtabs i{font-size:23px}.q1 .qtabs span{font-size:27px;padding:6px 22px}
+.q1 .qwho{font-size:23px;margin-bottom:8px}
+.q1 .qbub{font-size:32px;padding:16px 26px;border-radius:22px}
+.q1 .qr{gap:22px}
+.q2 .qcase{height:412px}
+.q2 .qleft{width:470px;padding:28px 36px}
+.q2 .qleft h2{font-size:44px}.q2 .qleft p{font-size:25px;margin-top:10px}
+.q2 .qdep span{font-size:22px}
+.q2 .qa-chat{margin:14px 14px 14px 0;padding:14px 26px}
+.q2 .qtabs{padding-bottom:10px}.q2 .qtabs span{font-size:24px;padding:4px 18px}.q2 .qtabs i{font-size:21px}
+.q2 .qstage{padding-top:10px}.q2 .qr{gap:8px}
+.q2 .qwho{font-size:20px;margin-bottom:3px}
+.q2 .qbub{font-size:28px;line-height:1.38;padding:9px 20px}

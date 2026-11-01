@@ -388,6 +388,28 @@ html:not(.pres){scroll-snap-type:y proximity;scroll-padding-top:44px}
 .anim .qask,.anim .qans{opacity:0;transform:translateY(10px);transition:opacity .35s,transform .35s}
 .anim .qask.show,.anim .qans.show{opacity:1;transform:none}
 
+/* qa-case size tuning: 1 case under header = large, 2 cases = compact-large */
+.t-qa-case .body.q1{justify-content:flex-start;gap:0}
+.t-qa-case .body.q1 .hd{margin-bottom:28px}
+.q1 .qcase{flex:1;height:auto}
+.q1 .qleft{width:560px;padding:44px 48px}
+.q1 .qtag{font-size:22px}.q1 .qleft h2{font-size:52px;margin-top:10px}.q1 .qleft p{font-size:29px;margin-top:20px}
+.q1 .qdep span{font-size:24px;padding:6px 18px}
+.q1 .qa-chat{margin:22px 22px 22px 0;padding:24px 32px}
+.q1 .qtabs i{font-size:23px}.q1 .qtabs span{font-size:27px;padding:6px 22px}
+.q1 .qwho{font-size:23px;margin-bottom:8px}
+.q1 .qbub{font-size:32px;padding:16px 26px;border-radius:22px}
+.q1 .qr{gap:22px}
+.q2 .qcase{height:412px}
+.q2 .qleft{width:470px;padding:28px 36px}
+.q2 .qleft h2{font-size:44px}.q2 .qleft p{font-size:25px;margin-top:10px}
+.q2 .qdep span{font-size:22px}
+.q2 .qa-chat{margin:14px 14px 14px 0;padding:14px 26px}
+.q2 .qtabs{padding-bottom:10px}.q2 .qtabs span{font-size:24px;padding:4px 18px}.q2 .qtabs i{font-size:21px}
+.q2 .qstage{padding-top:10px}.q2 .qr{gap:8px}
+.q2 .qwho{font-size:20px;margin-bottom:3px}
+.q2 .qbub{font-size:28px;line-height:1.38;padding:9px 20px}
+
 </style></head>
 <body>
 <div id="app"></div>
@@ -748,10 +770,11 @@ END_DECK_EDIT_CONTRACT -->
     },
     {
       "type": "qa-case",
-      "image": "agents5",
-      "alt": "웍스AI 에이전트 목록 화면: 사고·안전 보고, 신규 입사 온보딩, 구매·발주 요청, 불량 대응, 사내 규정 안내 비서 5종",
-      "src": "가상 제조기업 문서로 만든 시연 화면과 예시 대화 (고객 실적 아님, 답변 내용은 예시)",
-      "notes": "위 화면은 가상 제조기업 문서로 만든 시연 에이전트 5개다. 아래는 사내 규정 안내 비서에 여러 부서가 차례로 질문하는 예시 대화다. 부서마다 같은 에이전트 하나로 답을 받는다. 답변 내용은 예시이며 실제 답변은 고객이 올린 규정집을 근거로 한다. 문서에 없는 내용은 추측하지 않고 담당 부서를 안내한다.",
+      "eyebrow": "COMMON WORK AUTOMATION",
+      "title": "여러 부서가 함께 쓰는 업무를\n에이전트로 자동화합니다",
+      "lead": "기업용 전사 AI 포털 웍스AI에서는 부서를 넘나드는 공통 업무를 에이전트로 만들어 전 직원에게 엽니다.",
+      "src": "가상 제조기업 문서로 만든 시연 에이전트의 예시 대화 (고객 실적 아님, 답변 내용은 예시)",
+      "notes": "사내 규정 안내 비서에 여러 부서가 차례로 질문하는 예시 대화다. 부서마다 같은 에이전트 하나로 답을 받는다. 가상 제조기업 문서로 만든 시연이며 답변 내용은 예시다. 실제 답변은 고객이 올린 규정집을 근거로 하고, 문서에 없는 내용은 추측하지 않고 담당 부서를 안내한다.",
       "cases": [
         {
           "tag": "SAMPLE 01",
@@ -1127,7 +1150,7 @@ const CATALOG={
  quotes:{eyebrow:S(30),title:S(40,1),columns:AR(1,2,{org:S(40,1),role:S(40),sum:S(60),qa:AR(1,3,{q:S(60,1),a:S(230,1)})})},
  gallery:{eyebrow:S(30),title:S(40,1),lead:S(110),image:S(40,1),alt:S(140,1),caption:S(80)},
  video:{eyebrow:S(30),title:S(40,1),lead:S(110),file:S(80,1),poster:S(40),caption:S(80)},
- 'qa-case':{image:S(40),alt:S(140),cases:AR(1,2,{tag:S(16),name:S(24,1),desc:S(110,1),depts:AR(2,6,S(10)),agent:S(24,1),rounds:AR(2,4,{dept:S(10,1),q:S(50,1),a:S(150,1)})})},
+ 'qa-case':{eyebrow:S(30),title:S(40),lead:S(110),image:S(40),alt:S(140),cases:AR(1,2,{tag:S(16),name:S(24,1),desc:S(110,1),depts:AR(2,6,S(10)),agent:S(24,1),rounds:AR(2,4,{dept:S(10,1),q:S(50,1),a:S(150,1)})})},
  contact:{eyebrow:S(30),title:S(30,1),lead:S(100),rows:AR(1,6,{label:S(16,1),value:S(60,1),href:S(200)}),org:S(40),cta:{text:S(24,1),href:S(200,1)}}
 };
 const len=s=>Array.from(String(s)).length;
@@ -1182,7 +1205,7 @@ const R={
  gallery:p=>`<div class="body">${head(p)}<div class="gal-card"><img src="${ASSETS[p.image]||''}" alt="${esc(p.alt)}"></div>${p.caption?`<div class="gal-cap">${esc(p.caption).replace(/\[([^\]]+)\]/g,'<em>$1</em>')}</div>`:''}</div>`,
  video:p=>`<div class="body">${head(p)}<div class="vid-card"><video controls preload="metadata" playsinline${p.poster&&ASSETS[p.poster]?` poster="${ASSETS[p.poster]}"`:''} src="${esc(p.file)}">영상을 재생할 수 없는 환경입니다.</video></div>${p.caption?`<div class="vid-cap">${esc(p.caption)}</div>`:''}</div>`,
  'qa-case':p=>{const T=(x)=>`<span class="tx" data-t="${esc(x)}"><span class="tv">${esc(x)}</span><span class="th"></span></span>`;
-  return `<div class="body">${p.image?`<div class="qshot"><img src="${ASSETS[p.image]||''}" alt="${esc(p.alt||'')}"></div>`:''}${p.cases.map(c=>`<div class="qcase"><div class="qleft"><div class="qtag">${esc(c.tag||'')}</div><h2>${esc(c.name)}</h2><p>${rich(c.desc)}</p><div class="qdep">${c.depts.map(d=>`<span>${esc(d)}</span>`).join('')}</div></div><div class="qa-chat"><div class="qtabs"><i>질문하는 부서</i>${c.rounds.map((x,j)=>`<span class="${j?'':'on'}">${esc(x.dept)}</span>`).join('')}</div><div class="qstage">${c.rounds.map((x,j)=>`<div class="qr${j?'':' on'}"><div class="qask show"><span class="qwho">${esc(x.dept)} 질문</span><div class="qbub">${T(x.q)}</div></div><div class="qans show"><span class="qwho">${esc(c.agent)}</span><div class="qbub">${T(x.a)}</div></div></div>`).join('')}</div></div></div>`).join('')}</div>`},
+  return `<div class="body q${p.cases.length}">${p.title?head(p):''}${p.image?`<div class="qshot"><img src="${ASSETS[p.image]||''}" alt="${esc(p.alt||'')}"></div>`:''}${p.cases.map(c=>`<div class="qcase"><div class="qleft"><div class="qtag">${esc(c.tag||'')}</div><h2>${esc(c.name)}</h2><p>${rich(c.desc)}</p><div class="qdep">${c.depts.map(d=>`<span>${esc(d)}</span>`).join('')}</div></div><div class="qa-chat"><div class="qtabs"><i>질문하는 부서</i>${c.rounds.map((x,j)=>`<span class="${j?'':'on'}">${esc(x.dept)}</span>`).join('')}</div><div class="qstage">${c.rounds.map((x,j)=>`<div class="qr${j?'':' on'}"><div class="qask show"><span class="qwho">${esc(x.dept)} 질문</span><div class="qbub">${T(x.q)}</div></div><div class="qans show"><span class="qwho">${esc(c.agent)}</span><div class="qbub">${T(x.a)}</div></div></div>`).join('')}</div></div></div>`).join('')}</div>`},
  contact:p=>`<div class="body">${eb(p)}<h1 class="h1">${rich(p.title)}</h1>${p.lead?`<p class="lead">${rich(p.lead)}</p>`:''}<div class="crows">${p.rows.map(r=>`<div class="crow"><span>${esc(r.label)}</span><b>${r.href?`<a href="${esc(r.href)}">${esc(r.value)}</a>`:esc(r.value)}</b></div>`).join('')}</div>${p.cta?`<div><a class="cta" href="${esc(p.cta.href)}">${esc(p.cta.text)}</a></div>`:''}${p.org?`<div class="corg">${esc(p.org)}</div>`:''}${chip('ct-lg')}</div>`
 };
 const num=v=>{const s=String(v);return /^\d[\d,]*(\.\d+)?$/.test(s)?`<span class="num" data-to="${s.replace(/,/g,'')}" data-dec="${(s.split('.')[1]||'').length}" data-c="${s.includes(',')?1:0}">${esc(s)}</span>`:esc(s)};
