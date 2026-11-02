@@ -1259,6 +1259,67 @@ END_DECK_EDIT_CONTRACT -->
       "notes": "위 화면은 웍스AI 워크플로우 소개 영상의 예시(아침 브리핑)를 단순화한 모션이다. 자연어 한 줄로 일정과 단계가 만들어지고, 정한 시각에 단계가 차례로 실행되며, 결과물이 모여 검색 가능한 자산이 된다. 실제 화면과 다를 수 있고 사용 가능한 도구는 계약 조건과 설정에 따른다."
     },
     {
+      "type": "wf-demo",
+      "eyebrow": "FEATURE · BizCoder",
+      "title": "업무 앱도\n회사가 통제하며 만듭니다",
+      "lead": "반복 업무 자동화 다음 단계입니다. 개발 조직이 있는 기업은 업무 앱을 AI 코딩 에이전트로 만들고 배포합니다.",
+      "points": [
+        {
+          "text": "모델, 예산, 권한을 조직·부서·개인 단위로 통제"
+        },
+        {
+          "text": "개인정보와 비밀키는 자동 마스킹, 작업은 감사 로그로 기록"
+        },
+        {
+          "text": "HWP 등 한국 업무 문서를 읽고, 명령 한 줄로 배포"
+        }
+      ],
+      "lab": "BizCoder에 요청",
+      "prompt": "영업팀 주간 실적을 모아 보여 주는 웹 앱을 만들어줘",
+      "slab": "통제",
+      "sched": "부서 예산 한도 · 모델 허용목록 적용 중",
+      "steps": [
+        {
+          "t": "요구사항 분석",
+          "tag": "분석"
+        },
+        {
+          "t": "앱 코드 작성",
+          "tag": "코드"
+        },
+        {
+          "t": "비밀키·개인정보 자동 마스킹",
+          "tag": "보안"
+        },
+        {
+          "t": "테스트 실행",
+          "tag": "테스트"
+        },
+        {
+          "t": "bizcoder deploy 로 배포",
+          "tag": "배포"
+        }
+      ],
+      "results": [
+        {
+          "t": "영업팀 실적 앱",
+          "d": "배포 완료"
+        },
+        {
+          "t": "작업 감사 로그",
+          "d": "기록됨"
+        },
+        {
+          "t": "부서 예산 사용량",
+          "d": "집계됨"
+        }
+      ],
+      "rh": "결과",
+      "rhs": "",
+      "src": "AI3 BizCoder 제품 소개서(2026년 7월)와 제조사 공개 자료 기준, 화면은 단순화한 예시(실제 화면과 다를 수 있음)",
+      "notes": "웍스AI 반복 업무 자동화 다음 단계로, 본인 업무나 공통 업무를 앱으로 만드는 과정을 보여 주는 예시 모션이다. BizCoder는 제조사 AI3의 기업용 AI 코딩 에이전트이며 개발 조직이 있는 기업이 대상이다. 개인용 코딩 도구와 달리 모델·예산 통제, 개인정보·비밀키 마스킹, 감사 로그, 배포 내장이 붙는다. 요청 문구와 단계는 예시이다. 제조사 소개서의 벤치마크 수치와 최신 가격, 웍스AI 계정 연동 범위, 파트너 마진은 확인 후에 말한다(확인필요). 제조사 최신 사양은 발표 전에 점검한다."
+    },
+    {
       "type": "feature-shot",
       "eyebrow": "FEATURE · 슬라이드 생성",
       "title": "한국 직장 실무에 맞춘 AI 발표자료",
@@ -1501,7 +1562,7 @@ const CATALOG={
  gallery:{eyebrow:S(30),title:S(40,1),lead:S(110),image:S(40,1),alt:S(140,1),caption:S(80)},
  video:{eyebrow:S(30),title:S(40,1),lead:S(110),file:S(80,1),poster:S(40),caption:S(80)},
  'qa-case':{eyebrow:S(30),title:S(40),lead:S(110),image:S(40),alt:S(140),cases:AR(1,2,{tag:S(16),name:S(24,1),desc:S(110,1),depts:AR(2,6,S(10)),agent:S(24,1),rounds:AR(2,4,{dept:S(10,1),q:S(50,1),a:S(150,1)})})},
- 'wf-demo':{eyebrow:S(30),title:S(30,1),lead:S(100),points:AR(0,3,{text:S(60,1)}),prompt:S(70,1),sched:S(40,1),steps:AR(3,6,{t:S(26,1),tag:S(8)}),results:AR(2,4,{t:S(30,1),d:S(16,1)})},
+ 'wf-demo':{lab:S(20),slab:S(10),rh:S(24),rhs:S(40),eyebrow:S(30),title:S(30,1),lead:S(100),points:AR(0,3,{text:S(60,1)}),prompt:S(70,1),sched:S(40,1),steps:AR(3,6,{t:S(26,1),tag:S(8)}),results:AR(2,4,{t:S(30,1),d:S(16,1)})},
  'feat-scroll':{eyebrow:S(30),big:{value:S(6,1),unit:S(4)},cap:S(40),title:S(40,1),lead:S(110),items:AR(3,9,{value:S(6,1),unit:S(6),label:S(30,1)}),chips:AR(0,4,S(22)),tag:S(10),list:AR(6,40,S(22))},
  'guard-demo':{eyebrow:S(30),big:{value:S(6,1),unit:S(6)},cap:S(40),title:S(40,1),lead:S(130),items:AR(3,9,{value:S(8,1),unit:S(8),label:S(30,1)}),chips:AR(0,4,S(24)),card:{label:S(20,1),msg:S(40,1),status:S(40,1),done:S(40,1),fields:AR(2,4,{k:S(12,1),v:S(22,1),m:S(22,1)})}},
  'chat-demo':{eyebrow:S(30),title:S(30,1),lead:S(100),points:AR(0,4,{text:S(60,1)}),vendors:AR(3,6,S(12)),rounds:AR(2,4,{model:S(24,1),vi:E(['0','1','2','3','4','5']),q:S(50,1),tools:AR(1,3,{t:S(26,1),tag:S(10),pt:E(['0','1','2','3'])}),a:S(120,1)})},
@@ -1560,7 +1621,7 @@ const R={
  video:p=>`<div class="body">${head(p)}<div class="vid-card"><video controls preload="metadata" playsinline${p.poster&&ASSETS[p.poster]?` poster="${ASSETS[p.poster]}"`:''} src="${esc(p.file)}">영상을 재생할 수 없는 환경입니다.</video></div>${p.caption?`<div class="vid-cap">${esc(p.caption)}</div>`:''}</div>`,
  'qa-case':p=>{const T=(x)=>`<span class="tx" data-t="${esc(x)}"><span class="tv">${esc(x)}</span><span class="th"></span></span>`;
   return `<div class="body q${p.cases.length}${p.title?'':' nohd'}">${p.title?head(p):''}${p.image?`<div class="qshot"><img src="${ASSETS[p.image]||''}" alt="${esc(p.alt||'')}"></div>`:''}${p.cases.map(c=>`<div class="qcase"><div class="qleft"><div class="qtag">${esc(c.tag||'')}</div><h2>${esc(c.name)}</h2><p>${rich(c.desc)}</p><div class="qdep">${c.depts.map(d=>`<span>${esc(d)}</span>`).join('')}</div></div><div class="qa-chat"><div class="qtabs"><i>질문하는 부서</i>${c.rounds.map((x,j)=>`<span class="${j?'':'on'}">${esc(x.dept)}</span>`).join('')}</div><div class="qstage">${c.rounds.map((x,j)=>`<div class="qr${j?'':' on'}"><div class="qask show"><span class="qwho">${esc(x.dept)} 질문</span><div class="qbub">${T(x.q)}</div></div><div class="qans show"><span class="qwho">${esc(c.agent)}</span><div class="qbub">${T(x.a)}</div></div></div>`).join('')}</div></div></div>`).join('')}</div>`},
- 'wf-demo':p=>`<div class="body"><div class="wf"><div class="wf-in"><span class="wf-lab">말로 한 줄</span><div class="wf-prompt"><span class="tx" data-t="${esc(p.prompt)}"><span class="tv">${esc(p.prompt)}</span><span class="th"></span></span></div></div><div class="wf-sched on"><i>일정</i><b>${esc(p.sched)}</b></div><ol class="wf-steps">${p.steps.map((x,j)=>`<li class="show done"><span class="n">${j+1}</span><span class="t">${esc(x.t)}</span>${x.tag?`<em>${esc(x.tag)}</em>`:''}<span class="st">완료</span></li>`).join('')}</ol><div class="wf-res"><div class="wf-rh">결과물 모음 <small>검색 가능한 회사 자산으로 쌓입니다</small></div>${p.results.map(x=>`<div class="wf-r on"><span>${esc(x.t)}</span><b>${esc(x.d)}</b></div>`).join('')}</div></div><div class="fs-text">${eb(p)}<h1 class="h1">${rich(p.title)}</h1>${p.lead?`<p class="lead">${rich(p.lead)}</p>`:''}${(p.points||[]).length?`<ul class="pts">${p.points.map(x=>`<li>${rich(x.text)}</li>`).join('')}</ul>`:''}</div></div>`,
+ 'wf-demo':p=>`<div class="body"><div class="wf"><div class="wf-in"><span class="wf-lab">${esc(p.lab||'말로 한 줄')}</span><div class="wf-prompt"><span class="tx" data-t="${esc(p.prompt)}"><span class="tv">${esc(p.prompt)}</span><span class="th"></span></span></div></div><div class="wf-sched on"><i>${esc(p.slab||'일정')}</i><b>${esc(p.sched)}</b></div><ol class="wf-steps">${p.steps.map((x,j)=>`<li class="show done"><span class="n">${j+1}</span><span class="t">${esc(x.t)}</span>${x.tag?`<em>${esc(x.tag)}</em>`:''}<span class="st">완료</span></li>`).join('')}</ol><div class="wf-res"><div class="wf-rh">${esc(p.rh||'결과물 모음')} <small>${esc(p.rhs===undefined?'검색 가능한 회사 자산으로 쌓입니다':p.rhs)}</small></div>${p.results.map(x=>`<div class="wf-r on"><span>${esc(x.t)}</span><b>${esc(x.d)}</b></div>`).join('')}</div></div><div class="fs-text">${eb(p)}<h1 class="h1">${rich(p.title)}</h1>${p.lead?`<p class="lead">${rich(p.lead)}</p>`:''}${(p.points||[]).length?`<ul class="pts">${p.points.map(x=>`<li>${rich(x.text)}</li>`).join('')}</ul>`:''}</div></div>`,
  'feat-scroll':p=>{const row=x=>`<div class="fl-r"><i></i><span>${esc(x)}</span><b>${esc(p.tag||'')}</b></div>`;const L=p.list.slice(0,10).map(row).join('');
   return `<div class="body"><div class="fl-l">${eb(p)}<div class="fl-big">${num(p.big.value)}<small>${esc(p.big.unit||'')}</small><span class="fl-cap">${rich(p.cap||'')}</span></div><h1 class="h1">${rich(p.title)}</h1>${p.lead?`<p class="lead">${rich(p.lead)}</p>`:''}<div class="fl-st">${p.items.map(m=>`<div class="fl-s"><div class="fl-v">${num(m.value)}<small>${esc(m.unit||'')}</small></div><div class="fl-t">${esc(m.label)}</div></div>`).join('')}</div>${(p.chips||[]).length?`<div class="fl-ch">${p.chips.map(c=>`<span>${esc(c)}</span>`).join('')}</div>`:''}</div><div class="fl" data-tag="${esc(p.tag||'')}" data-l="${esc(JSON.stringify(p.list))}"><div class="fl-track">${L}</div></div></div>`},
  'guard-demo':p=>{const c=p.card;return `<div class="body"><div class="gd"><div class="gd-lab">${esc(c.label)}</div><div class="gd-msg">${esc(c.msg)}</div><div class="gd-fs">${c.fields.map(f=>`<div class="gd-fr m"><span class="k">${esc(f.k)}</span><span class="v"><em class="raw">${esc(f.v)}</em><em class="msk">${esc(f.m)}</em></span></div>`).join('')}</div><div class="gd-stat"><i></i><span class="s1">${esc(c.status)}</span><span class="s2">${esc(c.done)}</span></div></div><div class="fl-l gdr">${eb(p)}<div class="fl-big">${num(p.big.value)}<small>${esc(p.big.unit||'')}</small><span class="fl-cap">${rich(p.cap||'')}</span></div><h1 class="h1">${rich(p.title)}</h1>${p.lead?`<p class="lead">${rich(p.lead)}</p>`:''}<div class="fl-st">${p.items.map(m=>`<div class="fl-s"><div class="fl-v">${num(m.value)}<small>${esc(m.unit||'')}</small></div><div class="fl-t">${esc(m.label)}</div></div>`).join('')}</div>${(p.chips||[]).length?`<div class="fl-ch">${p.chips.map(x=>`<span>${esc(x)}</span>`).join('')}</div>`:''}</div></div>`},
