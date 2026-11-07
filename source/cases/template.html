@@ -1,0 +1,339 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>제조 AI 활용 사례 찾기 | LS ITC 웍스AI</title>
+<meta name="robots" content="noindex">
+<meta name="description" content="공개된 제조 AI 사례를 업무와 업종으로 찾아보고, 웍스AI로 할 수 있는 부분과 추가로 필요한 영역을 확인합니다.">
+<style>
+:root{
+  --navy:#16264F; --action:#004B87; --accent:#C8102E;
+  --bg:#F5F5F7; --surface:#FFFFFF; --ink:#1D1D1F; --ink2:#6E6E73; --line:#D2D2D7;
+  --soft:#E8EEF6; --soft2:#EFEFF2;
+  --radius:18px;
+}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--bg);color:var(--ink);
+  font-family:-apple-system,BlinkMacSystemFont,"Apple SD Gothic Neo","Malgun Gothic","Noto Sans KR","Segoe UI",sans-serif;
+  font-size:16px;line-height:1.6;word-break:keep-all;overflow-wrap:break-word}
+a{color:var(--action)}
+button,input,select{font:inherit;color:inherit}
+.wrap{max-width:1080px;margin:0 auto;padding:0 20px}
+
+/* hero */
+.hero{background:linear-gradient(90deg,rgba(13,27,42,.55) 0%,rgba(13,27,42,.15) 60%,rgba(13,27,42,0) 100%),#0D1B2A url("__COVER__") center/cover no-repeat;color:#fff;padding:56px 0 76px}
+.lockup{display:flex;align-items:center;gap:10px;margin:0 0 56px;font-size:15px;font-weight:700;color:#E9EBEC;letter-spacing:.3px}
+.lockup .sep{width:1px;height:14px;background:#E9EBEC;opacity:.6}
+.updated{display:inline-flex;align-items:center;gap:8px;margin:0 0 18px;padding:5px 12px;border:1px solid rgba(187,230,242,.45);border-radius:999px;font-size:13px;color:#BBE6F2}
+.updated b{color:#fff;font-weight:600}
+.hero h1{margin:0 0 18px;font-size:clamp(32px,5.2vw,54px);line-height:1.25;letter-spacing:-.5px;font-weight:700}
+.hero .lede{margin:0;max-width:720px;font-size:clamp(16px,2.2vw,20px);color:#BBE6F2}
+.hero .lede b{color:#fff}
+.notice{margin:22px 0 0;max-width:760px;font-size:14px;color:rgba(233,235,236,.78)}
+
+/* fit tiles */
+.tiles{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin:-28px 0 0}
+.tile{display:flex;flex-direction:column;justify-content:flex-start;align-items:flex-start;background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);padding:20px 20px 18px;text-align:left;cursor:pointer;
+  transition:border-color .15s,box-shadow .15s}
+.tile:hover{border-color:var(--action)}
+.tile[aria-pressed="true"]{border-color:var(--action);box-shadow:0 0 0 2px var(--action) inset}
+.tile .cnt{display:block;font-size:28px;font-weight:700;line-height:1.1}
+.tile .nm{display:flex;align-items:center;gap:8px;margin:8px 0 6px;font-weight:700}
+.tile .ds{display:block;font-size:14px;color:var(--ink2);line-height:1.5}
+.dot{width:10px;height:10px;border-radius:50%;flex:none}
+.dot.f1{background:var(--action)} .dot.f2{background:#fff;border:2px solid var(--action)} .dot.f3{background:#8E8E93}
+
+/* controls */
+.controls{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);padding:20px;margin:20px 0 0}
+.search{position:relative}
+.search input{width:100%;height:52px;border:1px solid var(--line);border-radius:12px;padding:0 16px;background:var(--bg);font-size:16px}
+.search input:focus{outline:2px solid var(--action);outline-offset:1px;background:#fff}
+.group{margin-top:16px}
+.glabel{display:block;margin-bottom:8px;font-size:13px;font-weight:700;color:var(--ink2)}
+.chips{display:flex;flex-wrap:wrap;gap:8px}
+.chip{border:1px solid var(--line);background:#fff;border-radius:999px;padding:7px 14px;font-size:14px;cursor:pointer;white-space:nowrap}
+.chip:hover{border-color:var(--action)}
+.chip[aria-pressed="true"]{background:var(--action);border-color:var(--action);color:#fff}
+.chip .n{margin-left:4px;font-size:12px;opacity:.7}
+.row2{display:flex;flex-wrap:wrap;gap:16px;margin-top:16px}
+.row2 .group{margin-top:0;flex:1;min-width:200px}
+select{width:100%;height:44px;border:1px solid var(--line);border-radius:10px;padding:0 12px;background:#fff}
+
+.bar{display:flex;align-items:center;justify-content:space-between;gap:12px;margin:28px 0 12px}
+.bar .count{font-size:15px;color:var(--ink2)}
+.bar .count b{color:var(--ink);font-size:18px}
+.reset{border:0;background:none;color:var(--action);cursor:pointer;font-size:14px;padding:6px 0}
+
+/* cards */
+.list{display:grid;gap:12px}
+.card{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);overflow:hidden}
+.card-head{display:block;width:100%;text-align:left;background:none;border:0;padding:20px 22px;cursor:pointer}
+.card-head:hover .ttl{color:var(--action)}
+.meta{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:10px}
+.tag{font-size:12px;padding:3px 10px;border-radius:999px;background:var(--soft2);color:var(--ink2)}
+.fit{font-size:12px;font-weight:700;padding:3px 10px;border-radius:999px}
+.fit.f1{background:var(--action);color:#fff}
+.fit.f2{background:var(--soft);color:var(--action);box-shadow:0 0 0 1px var(--action) inset}
+.fit.f3{background:#E5E5EA;color:#3A3A3C}
+.ttl{margin:0;font-size:18px;font-weight:700;line-height:1.4;transition:color .15s}
+.sum{margin:6px 0 0;font-size:15px;color:var(--ink2)}
+.more{display:inline-block;margin-top:10px;font-size:14px;color:var(--action);font-weight:600}
+.card-body{display:none;padding:0 22px 22px}
+.card.open .card-body{display:block}
+.card.open .more{display:none}
+.sec{padding:16px 0;border-top:1px solid var(--soft2)}
+.sec h3{margin:0 0 6px;font-size:14px;color:var(--ink2);font-weight:700}
+.sec p{margin:0}
+.duo{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:4px}
+.box{border-radius:14px;padding:16px 18px}
+.box h3{margin:0 0 6px;font-size:14px;font-weight:700}
+.box p{margin:0;font-size:15px}
+.box.can{background:var(--soft)} .box.can h3{color:var(--action)}
+.box.extra{background:var(--soft2)} .box.extra h3{color:#3A3A3C}
+.src{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:10px;margin-top:16px;font-size:14px;color:var(--ink2)}
+.src a{font-weight:600;text-decoration:none}
+.src a:hover{text-decoration:underline}
+.close{border:0;background:none;color:var(--ink2);cursor:pointer;font-size:14px;padding:4px 0}
+
+.loadmore{display:block;margin:20px auto 0;border:1px solid var(--action);background:#fff;color:var(--action);border-radius:999px;padding:12px 28px;font-weight:600;cursor:pointer}
+.loadmore:hover{background:var(--action);color:#fff}
+.empty{background:var(--surface);border:1px dashed var(--line);border-radius:var(--radius);padding:40px 20px;text-align:center;color:var(--ink2)}
+
+/* cta */
+.cta{background:var(--surface);border-top:1px solid var(--line);margin-top:56px;padding:48px 0}
+.cta h2{margin:0;font-size:clamp(22px,3.4vw,30px);letter-spacing:-.3px}
+.cta p{margin:0 0 20px;color:var(--ink2);max-width:680px}
+.contact{display:flex;flex-wrap:wrap;gap:12px 48px;margin:20px 0 0}
+.contact div{display:flex;flex-direction:column;gap:2px}
+.contact dt{font-size:13px;font-weight:700;color:var(--ink2)}
+.contact dd{margin:0;font-size:18px;font-weight:600}
+.contact a{text-decoration:none}
+.contact a:hover{text-decoration:underline}
+footer{padding:24px 0 40px;font-size:13px;color:var(--ink2)}
+
+@media (max-width:720px){
+  .hero{padding:36px 0 60px;background:linear-gradient(180deg,rgba(13,27,42,.2) 0%,rgba(13,27,42,.55) 100%),#0D1B2A url("__COVER__") 30% center/cover no-repeat}
+  .lockup{margin-bottom:36px}
+  .tiles{grid-template-columns:1fr;gap:10px}
+  .tile{padding:16px}
+  .tile{display:block}
+  .tile .cnt{font-size:22px;display:inline;margin-right:6px}
+  .tile .nm{display:inline-flex;margin:0}
+  .tile .ds{margin-top:6px}
+  .controls{padding:16px}
+  .chips.scroll{flex-wrap:nowrap;overflow-x:auto;padding-bottom:4px;-webkit-overflow-scrolling:touch}
+  .duo{grid-template-columns:1fr}
+  .card-head{padding:18px}
+  .card-body{padding:0 18px 18px}
+  .wrap{padding:0 16px}
+}
+</style>
+</head>
+<body>
+
+<header class="hero">
+  <div class="wrap">
+    <p class="lockup">LS ITC<span class="sep"></span>웍스AI</p>
+    <p class="updated">업데이트 <b>__UPDATED__</b> · 매월 갱신</p>
+    <h1>제조 AI 활용 사례 찾기</h1>
+    <p class="lede">웍스AI는 기업용 전사 AI 포털입니다. 국내외에 공개된 제조 AI 사례 <b id="totalN"></b>건을 업무와 업종으로 찾아보세요. 사례마다 웍스AI로 할 수 있는 부분과, 추가로 필요한 영역을 함께 정리했습니다.</p>
+    <p class="notice">이 페이지의 사례는 각 기업, 기관, 컨설팅사가 공개한 자료를 쉽게 다시 정리한 것입니다. LS ITC의 수행 실적이 아니며, 고객사 이름과 성과 수치는 넣지 않았습니다. 정확한 내용은 각 사례의 원문에서 확인해 주세요.</p>
+  </div>
+</header>
+
+<main class="wrap">
+  <div class="tiles" id="tiles"></div>
+
+  <section class="controls" aria-label="사례 검색과 필터">
+    <div class="search">
+      <label for="q" class="glabel">검색</label>
+      <input id="q" type="search" placeholder="예: 불량, 설비 고장, SOP 문서, 견적, 재고" autocomplete="off">
+    </div>
+    <div class="group">
+      <span class="glabel">업무 영역</span>
+      <div class="chips scroll" id="areaChips" role="group" aria-label="업무 영역"></div>
+    </div>
+    <div class="row2">
+      <div class="group">
+        <label class="glabel" for="ind">업종</label>
+        <select id="ind"></select>
+      </div>
+      <div class="group">
+        <label class="glabel" for="reg">지역</label>
+        <select id="reg">
+          <option value="">전체</option>
+          <option value="국내">국내 사례</option>
+          <option value="글로벌">해외 사례</option>
+        </select>
+      </div>
+    </div>
+  </section>
+
+  <div class="bar">
+    <div class="count" aria-live="polite"><b id="shownN">0</b>건의 사례</div>
+    <button class="reset" id="reset" type="button">조건 초기화</button>
+  </div>
+
+  <div class="list" id="list"></div>
+  <button class="loadmore" id="loadmore" type="button">사례 더 보기</button>
+</main>
+
+<section class="cta">
+  <div class="wrap">
+    <h2>우리 회사에 맞는 방법이 궁금하신가요?</h2>
+    <dl class="contact">
+      <div><dt>홈페이지</dt><dd><a href="https://enterprise-lsitc.com" target="_blank" rel="noopener">enterprise-lsitc.com</a></dd></div>
+      <div><dt>이메일</dt><dd><a href="mailto:enterprise@lsitc.com">enterprise@lsitc.com</a></dd></div>
+    </dl>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    사례 출처: 각 기업, 기관, 컨설팅사, 클라우드사의 공개 자료. 최종 업데이트 __UPDATED__. 웍스AI 적용 범위는 공개 자료를 바탕으로 한 LS ITC의 판단이며, 실제 적용 범위는 고객 환경에 따라 달라질 수 있습니다.
+  </div>
+</footer>
+
+<script>
+const CASES = __DATA__;
+const FITS = [
+  {k:"웍스AI로 바로 가능", c:"f1", d:"문서 검색, 업무 에이전트, 정해진 순서 자동 실행처럼 웍스AI 기본 기능으로 시작할 수 있습니다."},
+  {k:"사내 시스템 연동 필요", c:"f2", d:"ERP, MES, DB 같은 사내 시스템을 웍스AI에 연결(MCP)하면 할 수 있습니다."},
+  {k:"별도 솔루션 필요", c:"f3", d:"비전 검사, 실시간 예측, 로봇 같은 전문 솔루션이 핵심입니다. 웍스AI는 주변 업무를 돕습니다."}
+];
+const FITC = Object.fromEntries(FITS.map(f=>[f.k,f.c]));
+const FIT_ORDER = Object.fromEntries(FITS.map((f,i)=>[f.k,i]));
+const AREAS = ["품질","생산","설비보전","설계","R&D","구매","물류","영업","경영지원","기타"];
+const INDS = ["자동차·부품","전자·반도체","화학·소재","철강·금속","기계·장비","조선·중공업","식품·음료","제약·바이오","화장품·소비재","에너지·플랜트","기타 제조"];
+const STYPE = {"공공":"공공기관 공개 사례","클라우드마켓":"클라우드사 공개 사례","컨설팅":"컨설팅사 공개 사례","AI에이전트회사":"AI 기업 공개 사례","SI":"IT 서비스사 공개 사례","기타":"공개 사례"};
+const PAGE = 20;
+
+const st = {q:"", area:"", ind:"", reg:"", fit:"", limit:PAGE};
+const $ = id => document.getElementById(id);
+const esc = s => String(s==null?"":s).replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+const norm = s => String(s||"").toLowerCase().replace(/\s+/g,"");
+
+CASES.forEach(c=>{ c._s = norm([c.t,c.a,c.g,c.p,c.h,c.c,c.e,c.k,c.f].join(" ")); });
+CASES.sort((a,b)=> (FIT_ORDER[a.f]-FIT_ORDER[b.f]) || (a.No-b.No));
+$("totalN").textContent = CASES.length;
+
+function readURL(){
+  try{
+    const p = new URLSearchParams(location.search);
+    st.q = p.get("q")||""; st.area = p.get("area")||""; st.ind = p.get("industry")||"";
+    st.reg = p.get("region")||""; st.fit = p.get("fit")||"";
+    if(!AREAS.includes(st.area)) st.area="";
+    if(!INDS.includes(st.ind)) st.ind="";
+    if(!["국내","글로벌"].includes(st.reg)) st.reg="";
+    if(!(st.fit in FITC)) st.fit="";
+  }catch(e){}
+}
+function writeURL(){
+  try{
+    const p = new URLSearchParams();
+    if(st.q) p.set("q",st.q); if(st.area) p.set("area",st.area); if(st.ind) p.set("industry",st.ind);
+    if(st.reg) p.set("region",st.reg); if(st.fit) p.set("fit",st.fit);
+    const qs = p.toString();
+    history.replaceState(null,"",location.pathname+(qs?"?"+qs:"")+location.hash);
+  }catch(e){}
+}
+
+function match(c, skip){
+  if(skip!=="area" && st.area && c.a!==st.area) return false;
+  if(skip!=="ind" && st.ind && c.g!==st.ind) return false;
+  if(skip!=="reg" && st.reg && c.r!==st.reg) return false;
+  if(skip!=="fit" && st.fit && c.f!==st.fit) return false;
+  if(st.q){
+    const terms = st.q.toLowerCase().split(/\s+/).filter(Boolean);
+    for(const t of terms){ if(!c._s.includes(t)) return false; }
+  }
+  return true;
+}
+const countBy = (skip, key, val) => CASES.filter(c=>match(c,skip) && c[key]===val).length;
+
+function renderTiles(){
+  $("tiles").innerHTML = FITS.map(f=>`
+    <button class="tile" type="button" data-fit="${esc(f.k)}" aria-pressed="${st.fit===f.k}">
+      <span class="cnt">${countBy("fit","f",f.k)}</span>
+      <span class="nm"><span class="dot ${f.c}"></span>${esc(f.k)}</span>
+      <span class="ds">${esc(f.d)}</span>
+    </button>`).join("");
+}
+function renderAreas(){
+  const all = CASES.filter(c=>match(c,"area")).length;
+  $("areaChips").innerHTML =
+    `<button class="chip" type="button" data-area="" aria-pressed="${!st.area}">전체<span class="n">${all}</span></button>` +
+    AREAS.map(a=>{const n=countBy("area","a",a);
+      return `<button class="chip" type="button" data-area="${esc(a)}" aria-pressed="${st.area===a}">${esc(a)}<span class="n">${n}</span></button>`;}).join("");
+}
+function renderInd(){
+  const all = CASES.filter(c=>match(c,"ind")).length;
+  $("ind").innerHTML = `<option value="">전체 업종 (${all})</option>` +
+    INDS.map(g=>`<option value="${esc(g)}"${st.ind===g?" selected":""}>${esc(g)} (${countBy("ind","g",g)})</option>`).join("");
+}
+function card(c){
+  const fc = FITC[c.f]||"f3";
+  const link = c.u ? `<a href="${esc(c.u)}" target="_blank" rel="noopener noreferrer">원문 보기 &rarr;</a>` : "";
+  return `<article class="card" id="case-${c.No}">
+    <button class="card-head" type="button" aria-expanded="false" aria-controls="b-${c.No}">
+      <div class="meta">
+        <span class="fit ${fc}">${esc(c.f)}</span>
+        <span class="tag">${esc(c.a)}</span>
+        <span class="tag">${esc(c.g)}</span>
+        <span class="tag">${c.r==="국내"?"국내":"해외"}</span>
+      </div>
+      <h2 class="ttl">${esc(c.t)}</h2>
+      <p class="sum">${esc(c.p)}</p>
+      <span class="more">자세히 보기</span>
+    </button>
+    <div class="card-body" id="b-${c.No}">
+      <div class="sec"><h3>어떻게 해결했나</h3><p>${esc(c.h)}</p></div>
+      <div class="duo">
+        <div class="box can"><h3>웍스AI로 할 수 있는 부분</h3><p>${esc(c.c)}</p></div>
+        <div class="box extra"><h3>추가로 필요한 영역</h3><p>${esc(c.e)}</p></div>
+      </div>
+      <div class="src"><span>사례 ${c.No} · ${esc(STYPE[c.s]||"공개 사례")}</span><span>${link}</span></div>
+    </div>
+  </article>`;
+}
+function renderList(){
+  const rows = CASES.filter(c=>match(c));
+  $("shownN").textContent = rows.length;
+  if(!rows.length){
+    $("list").innerHTML = `<div class="empty">조건에 맞는 사례가 없습니다. 검색어를 줄이거나 조건을 초기화해 보세요.</div>`;
+  } else {
+    $("list").innerHTML = rows.slice(0, st.limit).map(card).join("");
+  }
+  const left = rows.length - st.limit;
+  $("loadmore").style.display = left>0 ? "block" : "none";
+  $("loadmore").textContent = `사례 더 보기 (${Math.max(left,0)}건 남음)`;
+}
+function render(){ renderTiles(); renderAreas(); renderInd(); renderList(); writeURL(); }
+function update(){ st.limit = PAGE; render(); }
+
+$("tiles").addEventListener("click", e=>{const b=e.target.closest("[data-fit]"); if(!b) return; const v=b.dataset.fit; st.fit = st.fit===v ? "" : v; update();});
+$("areaChips").addEventListener("click", e=>{const b=e.target.closest("[data-area]"); if(!b) return; st.area=b.dataset.area; update();});
+$("ind").addEventListener("change", e=>{st.ind=e.target.value; update();});
+$("reg").addEventListener("change", e=>{st.reg=e.target.value; update();});
+let timer; $("q").addEventListener("input", e=>{clearTimeout(timer); timer=setTimeout(()=>{st.q=e.target.value.trim(); update();},150);});
+$("reset").addEventListener("click", ()=>{Object.assign(st,{q:"",area:"",ind:"",reg:"",fit:""}); $("q").value=""; $("reg").value=""; update();});
+$("loadmore").addEventListener("click", ()=>{st.limit += PAGE; renderList();});
+$("list").addEventListener("click", e=>{
+  const h = e.target.closest(".card-head"); if(!h) return;
+  const cd = h.parentElement; const open = cd.classList.toggle("open");
+  h.setAttribute("aria-expanded", open);
+});
+
+readURL();
+$("q").value = st.q; $("reg").value = st.reg;
+render();
+if(location.hash.startsWith("#case-")){
+  const n = +location.hash.slice(6); const i = CASES.findIndex(c=>c.No===n);
+  if(i>=0){ st.limit = Math.max(st.limit, Math.ceil((CASES.filter(c=>match(c)).findIndex(c=>c.No===n)+1)/PAGE)*PAGE); renderList();
+    const el=$("case-"+n); if(el){el.classList.add("open"); el.querySelector(".card-head").setAttribute("aria-expanded","true"); el.scrollIntoView();} }
+}
+</script>
+</body>
+</html>
