@@ -14,7 +14,7 @@ const S=(max,req)=>({k:'s',max,req}),E=(vals)=>({k:'e',vals}),AR=(min,max,item)=
 const EV=E(['v','i','u']);
 const COMMON={bg:E(['light','parch','dark']),ev:EV,notes:S(500),src:S(120)};
 const CATALOG={
- cover:{eyebrow:S(40),title:S(16,1),subtitle:S(46,1),accent:S(90),org:S(40),image:S(40,1)},
+ cover:{video:S(80),eyebrow:S(40),title:S(16,1),subtitle:S(46,1),accent:S(90),org:S(40),image:S(40,1)},
  statement:{eyebrow:S(30),title:S(60,1),lead:S(130),badge:S(30),badgeEv:EV},
  section:{eyebrow:S(30),title:S(36,1),lead:S(140),chips:AR(0,8,S(22))},
  cards:{eyebrow:S(30),title:S(40,1),lead:S(110),badge:S(40),items:AR(2,4,{title:S(24,1),body:S(110,1),ev:EV})},
@@ -71,7 +71,7 @@ const chip=(cls)=>META.logos&&ASSETS[META.logos.main]&&ASSETS[META.logos.partner
 const eb=p=>p.eyebrow?`<div class="eyebrow">${esc(p.eyebrow)}</div>`:'';
 const head=p=>`<div class="hd">${eb(p)}<h1 class="h1">${rich(p.title)}${dag(p)}</h1>${p.lead?`<p class="lead">${rich(p.lead)}</p>`:''}</div>`;
 const R={
- cover:p=>`<div class="cv-eb">${esc(p.eyebrow||'')}</div><h1 class="cv-t">${rich(p.title)}</h1><div class="cv-s">${rich(p.subtitle)}</div>${p.accent?`<div class="cv-a">${rich(p.accent)}</div>`:''}${p.org?`<div class="cv-o">${esc(p.org)}</div>`:''}${chip('cv-lg')}`,
+ cover:p=>`${p.video?`<video class="cv-vid" src="${esc(p.video)}" muted loop playsinline preload="auto" aria-hidden="true" tabindex="-1"></video><div class="cv-shade"></div>`:''}<div class="cv-eb">${esc(p.eyebrow||'')}</div><h1 class="cv-t">${rich(p.title)}</h1><div class="cv-s">${rich(p.subtitle)}</div>${p.accent?`<div class="cv-a">${rich(p.accent)}</div>`:''}${p.org?`<div class="cv-o">${esc(p.org)}</div>`:''}${chip('cv-lg')}`,
  statement:p=>`<div class="body">${eb(p)}<h1 class="h1">${rich(p.title)}${dag(p)}</h1>${p.lead?`<p class="lead">${rich(p.lead)}</p>`:''}${p.badge?`<div><span class="badge">${esc(p.badge)}${INTERNAL&&p.badgeEv==='u'?'<sup class="dag">†</sup>':''}</span></div>`:''}</div>`,
  section:p=>`<div class="body">${eb(p)}<h1 class="h1">${rich(p.title)}</h1>${p.lead?`<p class="lead">${rich(p.lead)}</p>`:''}${(p.chips||[]).length?`<div class="chips">${p.chips.map(c=>`<span class="chip">${esc(c)}</span>`).join('')}</div>`:''}</div>`,
  cards:p=>`<div class="body">${head(p)}${p.badge?`<div><span class="badge" style="margin:0 0 36px">${esc(p.badge)}</span></div>`:''}<div class="cards" style="--n:${p.items.length}">${p.items.map((c,j)=>`<div class="card"><div class="ix">${String(j+1).padStart(2,'0')}</div><h3>${rich(c.title)}${dag(c)}</h3><p>${rich(c.body)}</p></div>`).join('')}</div></div>`,
@@ -105,7 +105,7 @@ function buildTiles(){
   t.className='tile t-'+(p.type==='feature-shot'?'fs':p.type)+' bg-'+BGS[i]+(p.type==='feature-shot'&&p.side==='left'?' left':'');
   t.dataset.i=i; t.setAttribute('aria-label',(i+1)+'쪽');
   const foot=p.type==='cover'?'':`${p.src?`<div class="tsrc">출처: ${esc(p.src)}</div>`:''}<div class="tfoot">${(p.type==='contact'?'':chip('ft-lg'))||`<span>${p.type==='contact'?'':esc(META.brand||'')}</span>`}<span>${i+1} / ${N}</span></div>`;
-  const amb=['statement','section','contact'].includes(p.type)?'<div class="amb"><i></i><i></i></div>':p.type==='cover'?'<div class="aur"><i></i><i></i><i></i><b></b></div>':'';
+  const amb=['statement','section','contact'].includes(p.type)?'<div class="amb"><i></i><i></i></div>':p.type==='cover'&&!p.video?'<div class="aur"><i></i><i></i><i></i><b></b></div>':'';
   t.innerHTML=amb+(p.type==='cover'?R.cover(p):R[p.type](p))+foot;
   return t;
  });
@@ -192,6 +192,7 @@ function chStart(t){ $$('.ch',t).forEach(ch=>{
    r.classList.remove('on');await sl(450) } } })();
  }) }
 function runCounts(t){ if(STATIC)return;
+ $$('.cv-vid',t).forEach(v=>{v.muted=true;const r=v.play&&v.play();if(r&&r.catch)r.catch(()=>{})});
  chStart(t);
  gdStart(t);
  flStart(t);
